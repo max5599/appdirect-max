@@ -10,9 +10,6 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aCreateResponse;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -39,9 +36,7 @@ public class CreateNotificationTest extends Integrationtest {
     }
 
     private ResponseEntity<CreateResponse> callCreateNotificationWithUrlParam(String urlParam) {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("url", urlParam);
-        return template.getForEntity("http://localhost:" + port + "/subscription/create", CreateResponse.class, parameters);
+        return template.getForEntity("http://localhost:" + port + "/subscription/create?url={url}", CreateResponse.class, urlParam);
     }
 
     @After
