@@ -13,12 +13,10 @@ import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SqlGroup({
-        @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:db/user/createTableUser.sql"),
-        @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:db/user/dropTableUser.sql")})
+        @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:db/user/cleanTables.sql")})
 public class CreateNotificationTest extends Integrationtest {
 
     private FakeServer fakeServer;
