@@ -1,5 +1,6 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.utils.Validator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -21,10 +22,10 @@ public class CreateNotificationControllerTest {
 
     private static final String SUBSCRIPTION_CREATE_URL = "/subscription/create";
 
-    private final MockMvc mvc = MockMvcBuilders.standaloneSetup(new CreateNotificationController()).build();
-
     @Test
     public void shouldReturnOk() throws Exception {
+        MockMvc mvc = createMockMvc(url -> true);
+
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
                 .accept(MediaType.APPLICATION_JSON)
                 .param("url", "http://appdirect/event/12345");
@@ -34,9 +35,27 @@ public class CreateNotificationControllerTest {
 
     @Test
     public void shouldReturnBadRequestWhenUrlParamIsMissing() throws Exception {
+        MockMvc mvc = createMockMvc(url -> true);
+
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
                 .accept(MediaType.APPLICATION_JSON);
 
         mvc.perform(requestBuilder).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenUrlParamIsNotAValidUrl() throws Exception {
+        MockMvc mvc = createMockMvc(url -> false);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("url", "notAValidUrl");
+
+        mvc.perform(requestBuilder).andExpect(status().isBadRequest());
+    }
+
+    private MockMvc createMockMvc(Validator<String> urlValidator) {
+        CreateNotificationController createNotificationController = new CreateNotificationController(urlValidator);
+        return MockMvcBuilders.standaloneSetup(createNotificationController).build();
     }
 }
