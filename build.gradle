@@ -36,5 +36,8 @@ dependencies {
     testCompile("com.vtence.molecule:molecule:0.9.1")
     testCompile("org.simpleframework:simple-http:6.0.1")
     testCompile("org.skyscreamer:jsonassert:0.9.0")
+}
 
+task stage {
+    dependsOn build
 }
