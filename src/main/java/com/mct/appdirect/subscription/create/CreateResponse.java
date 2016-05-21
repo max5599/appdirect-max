@@ -1,40 +1,45 @@
 package com.mct.appdirect.subscription.create;
 
+import java.util.Objects;
+import java.util.Optional;
+
 public class CreateResponse {
 
     private final boolean success;
     private final String accountIdentifier;
+    private final String errorCode;
 
-    public CreateResponse(boolean success, String accountIdentifier) {
+    CreateResponse(boolean success, String accountIdentifier, String errorCode) {
         this.success = success;
         this.accountIdentifier = accountIdentifier;
+        this.errorCode = errorCode;
     }
 
     public boolean isSuccess() {
         return success;
     }
 
-    public String getAccountIdentifier() {
-        return accountIdentifier;
+    public Optional<String> getAccountIdentifier() {
+        return Optional.ofNullable(accountIdentifier);
+    }
+
+    public Optional<String> getErrorCode() {
+        return Optional.ofNullable(errorCode);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        CreateResponse response = (CreateResponse) o;
-
-        return success == response.success
-                && (accountIdentifier != null ? accountIdentifier.equals(response.accountIdentifier) : response.accountIdentifier == null);
-
+        CreateResponse that = (CreateResponse) o;
+        return success == that.success &&
+                Objects.equals(accountIdentifier, that.accountIdentifier) &&
+                Objects.equals(errorCode, that.errorCode);
     }
 
     @Override
     public int hashCode() {
-        int result = (success ? 1 : 0);
-        result = 31 * result + (accountIdentifier != null ? accountIdentifier.hashCode() : 0);
-        return result;
+        return Objects.hash(success, accountIdentifier, errorCode);
     }
 
     @Override
@@ -42,6 +47,7 @@ public class CreateResponse {
         return "CreateResponse{" +
                 "success=" + success +
                 ", accountIdentifier='" + accountIdentifier + '\'' +
+                ", errorCode='" + errorCode + '\'' +
                 '}';
     }
 }

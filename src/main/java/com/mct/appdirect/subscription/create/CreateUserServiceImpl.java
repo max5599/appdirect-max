@@ -18,8 +18,13 @@ public class CreateUserServiceImpl implements CreateUserService {
     @Override
     public CreateResponse createUserWithEventURL(String eventUrl) {
         Event event = notificationEventRetriever.retrieveEvent(eventUrl);
-        String userId = createUserRepository.createUser(event);
+        UserCreationResult result = createUserRepository.createUser(event);
 
-        return new CreateResponse(true, userId);
+        return createSuccessfulResponseWithIdOrCreateFailureWithErrorCode(result);
+    }
+
+    private CreateResponse createSuccessfulResponseWithIdOrCreateFailureWithErrorCode(UserCreationResult result) {
+        return result.getUserId().map(CreateResponseBuilder::aSuccessfulResponseWithAccountIdentifier)
+        .orElseGet(() -> result.getErrorCode().map(CreateResponseBuilder::aFaliureResponseWithErrorCode).get());
     }
 }

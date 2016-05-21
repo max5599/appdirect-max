@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aCreateResponse;
+import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,7 +59,7 @@ public class CreateNotificationControllerTest {
     }
 
     private MockMvc createMockMvc(Validator<String> urlValidator) {
-        CreateUserService createUserService = eventUrl -> aCreateResponse().withSuccess().withAccountIdentifier("123abc").build();
+        CreateUserService createUserService = eventUrl -> aSuccessfulResponseWithAccountIdentifier("123abc");
         CreateNotificationController createNotificationController = new CreateNotificationController(urlValidator, createUserService);
         return MockMvcBuilders.standaloneSetup(createNotificationController).build();
     }
