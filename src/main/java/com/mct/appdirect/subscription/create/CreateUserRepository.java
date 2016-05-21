@@ -1,7 +1,7 @@
 package com.mct.appdirect.subscription.create;
 
 @FunctionalInterface
-public interface CreateUserRepository {
+interface CreateUserRepository {
 
     UserCreationResult createUser(Event event);
 

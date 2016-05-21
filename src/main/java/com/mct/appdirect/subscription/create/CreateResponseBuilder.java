@@ -1,15 +1,15 @@
 package com.mct.appdirect.subscription.create;
 
-public class CreateResponseBuilder {
+class CreateResponseBuilder {
 
     private CreateResponseBuilder() {
     }
 
-    public static CreateResponse aSuccessfulResponseWithAccountIdentifier(String accountIdentifier) {
+    static CreateResponse aSuccessfulResponseWithAccountIdentifier(String accountIdentifier) {
         return new CreateResponse(true, accountIdentifier, null);
     }
 
-    public static CreateResponse aFaliureResponseWithErrorCode(String errorCode) {
+    static CreateResponse aFailureResponseWithErrorCode(String errorCode) {
         return new CreateResponse(false, null, errorCode);
     }
 }

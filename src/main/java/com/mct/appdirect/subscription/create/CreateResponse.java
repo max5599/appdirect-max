@@ -3,7 +3,7 @@ package com.mct.appdirect.subscription.create;
 import java.util.Objects;
 import java.util.Optional;
 
-public class CreateResponse {
+class CreateResponse {
 
     private final boolean success;
     private final String accountIdentifier;

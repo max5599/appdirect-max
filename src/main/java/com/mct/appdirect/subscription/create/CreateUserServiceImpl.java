@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreateUserServiceImpl implements CreateUserService {
+class CreateUserServiceImpl implements CreateUserService {
 
     private final NotificationEventRetriever notificationEventRetriever;
     private final CreateUserRepository createUserRepository;
@@ -25,6 +25,6 @@ public class CreateUserServiceImpl implements CreateUserService {
 
     private CreateResponse createSuccessfulResponseWithIdOrCreateFailureWithErrorCode(UserCreationResult result) {
         return result.getUserId().map(CreateResponseBuilder::aSuccessfulResponseWithAccountIdentifier)
-        .orElseGet(() -> result.getErrorCode().map(CreateResponseBuilder::aFaliureResponseWithErrorCode).get());
+        .orElseGet(() -> result.getErrorCode().map(CreateResponseBuilder::aFailureResponseWithErrorCode).get());
     }
 }

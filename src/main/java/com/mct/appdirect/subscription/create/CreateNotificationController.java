@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-public class CreateNotificationController {
+class CreateNotificationController {
 
     private final Validator<String> urlValidator;
     private final CreateUserService createUserService;
@@ -25,7 +25,7 @@ public class CreateNotificationController {
 
     @RequestMapping("/subscription/create")
     public CreateResponse subscriptionCreate(@RequestParam(value = "url") String url) {
-        if (!urlValidator.isValid(url)) {
+        if (urlValidator.isInvalid(url)) {
             throw new IllegalArgumentException("The 'url' parameter is not a valid url");
         }
 

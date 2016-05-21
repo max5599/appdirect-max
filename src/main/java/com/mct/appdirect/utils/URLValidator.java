@@ -7,7 +7,7 @@ import java.net.URL;
 @Service
 public class URLValidator implements Validator<String> {
 
-    public boolean isValid(String url) {
+    public boolean isInvalid(String url) {
         try {
             new URL(url);
         } catch (Exception e) {

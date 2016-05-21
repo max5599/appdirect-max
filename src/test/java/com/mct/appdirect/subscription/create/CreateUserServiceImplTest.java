@@ -2,7 +2,7 @@ package com.mct.appdirect.subscription.create;
 
 import org.junit.Test;
 
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aFaliureResponseWithErrorCode;
+import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aFailureResponseWithErrorCode;
 import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSuccedWithId;
@@ -27,7 +27,7 @@ public class CreateUserServiceImplTest {
 
         CreateResponse createResponse = createUserService.createUserWithEventURL("eventURL");
 
-        CreateResponse expectedResponse = aFaliureResponseWithErrorCode("USER_ALREADY_EXISTS");
+        CreateResponse expectedResponse = aFailureResponseWithErrorCode("USER_ALREADY_EXISTS");
         assertThat(createResponse, equalTo(expectedResponse));
     }
 

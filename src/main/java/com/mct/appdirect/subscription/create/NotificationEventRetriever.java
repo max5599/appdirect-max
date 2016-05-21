@@ -1,7 +1,7 @@
 package com.mct.appdirect.subscription.create;
 
 @FunctionalInterface
-public interface NotificationEventRetriever {
+interface NotificationEventRetriever {
 
     Event retrieveEvent(String eventUrl);
 
