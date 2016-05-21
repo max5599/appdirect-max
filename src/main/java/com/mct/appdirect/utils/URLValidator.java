@@ -11,8 +11,8 @@ public class URLValidator implements Validator<String> {
         try {
             new URL(url);
         } catch (Exception e) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

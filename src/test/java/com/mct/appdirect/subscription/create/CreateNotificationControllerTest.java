@@ -26,7 +26,7 @@ public class CreateNotificationControllerTest {
 
     @Test
     public void shouldReturnOkWithTheResponse() throws Exception {
-        MockMvc mvc = createMockMvc(url -> true);
+        MockMvc mvc = createMockMvc(url -> false);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
                 .accept(MediaType.APPLICATION_JSON)
@@ -39,7 +39,7 @@ public class CreateNotificationControllerTest {
 
     @Test
     public void shouldReturnBadRequestWhenUrlParamIsMissing() throws Exception {
-        MockMvc mvc = createMockMvc(url -> true);
+        MockMvc mvc = createMockMvc(url -> false);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
                 .accept(MediaType.APPLICATION_JSON);
@@ -49,7 +49,7 @@ public class CreateNotificationControllerTest {
 
     @Test
     public void shouldReturnBadRequestWhenUrlParamIsNotAValidUrl() throws Exception {
-        MockMvc mvc = createMockMvc(url -> false);
+        MockMvc mvc = createMockMvc(url -> true);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
                 .accept(MediaType.APPLICATION_JSON)
