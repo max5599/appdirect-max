@@ -15,10 +15,12 @@ import java.io.IOException;
 public class CreateNotificationController {
 
     private final Validator<String> urlValidator;
+    private final CreateUserService createUserService;
 
     @Autowired
-    public CreateNotificationController(Validator<String> urlValidator) {
+    public CreateNotificationController(Validator<String> urlValidator, CreateUserService createUserService) {
         this.urlValidator = urlValidator;
+        this.createUserService = createUserService;
     }
 
     @RequestMapping("/subscription/create")
@@ -27,7 +29,7 @@ public class CreateNotificationController {
             throw new IllegalArgumentException("The 'url' parameter is not a valid url");
         }
 
-        return null;
+        return createUserService.createUserWithEventURL(url);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

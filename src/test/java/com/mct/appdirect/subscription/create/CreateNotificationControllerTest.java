@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aCreateResponse;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,14 +25,16 @@ public class CreateNotificationControllerTest {
     private static final String SUBSCRIPTION_CREATE_URL = "/subscription/create";
 
     @Test
-    public void shouldReturnOk() throws Exception {
+    public void shouldReturnOkWithTheResponse() throws Exception {
         MockMvc mvc = createMockMvc(url -> true);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
                 .accept(MediaType.APPLICATION_JSON)
                 .param("url", "http://appdirect/event/12345");
 
-        mvc.perform(requestBuilder).andExpect(status().isOk());
+        mvc.perform(requestBuilder)
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"accountIdentifier\":\"123abc\", \"success\":true}"));
     }
 
     @Test
@@ -55,7 +59,8 @@ public class CreateNotificationControllerTest {
     }
 
     private MockMvc createMockMvc(Validator<String> urlValidator) {
-        CreateNotificationController createNotificationController = new CreateNotificationController(urlValidator);
+        CreateUserService createUserService = eventUrl -> aCreateResponse().withSuccess().withAccountIdentifier("123abc").build();
+        CreateNotificationController createNotificationController = new CreateNotificationController(urlValidator, createUserService);
         return MockMvcBuilders.standaloneSetup(createNotificationController).build();
     }
 }

@@ -5,7 +5,8 @@ public class CreateResponseBuilder {
     private boolean success = false;
     private String accountIdentifier = "accountIdentifier";
 
-    private CreateResponseBuilder() {}
+    private CreateResponseBuilder() {
+    }
 
     public static CreateResponseBuilder aCreateResponse() {
         return new CreateResponseBuilder();
@@ -22,10 +23,7 @@ public class CreateResponseBuilder {
     }
 
     public CreateResponse build() {
-        CreateResponse response =  new CreateResponse();
-        response.setSuccess(success);
-        response.setAccountIdentifier(accountIdentifier);
-        return response;
+        return new CreateResponse(success, accountIdentifier);
     }
 
 }

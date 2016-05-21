@@ -2,18 +2,20 @@ package com.mct.appdirect.subscription.create;
 
 public class CreateResponse {
 
-    private boolean success;
-    private String accountIdentifier;
+    private final boolean success;
+    private final String accountIdentifier;
 
-    public CreateResponse() {
-    }
-
-    public void setSuccess(boolean success) {
+    public CreateResponse(boolean success, String accountIdentifier) {
         this.success = success;
+        this.accountIdentifier = accountIdentifier;
     }
 
-    public void setAccountIdentifier(String accountIdentifier) {
-        this.accountIdentifier = accountIdentifier;
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getAccountIdentifier() {
+        return accountIdentifier;
     }
 
     @Override
