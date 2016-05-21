@@ -22,7 +22,7 @@ public class CreateNotificationControllerTest {
     private final MockMvc mvc = MockMvcBuilders.standaloneSetup(new CreateNotificationController()).build();
 
     @Test
-    public void shouldDelegateUserSubscriptionAndReturnResult() throws Exception {
+    public void shouldReturnOk() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/subscription/create")
                 .accept(MediaType.APPLICATION_JSON)
                 .param("url", "http://appdirect/event/12345");
