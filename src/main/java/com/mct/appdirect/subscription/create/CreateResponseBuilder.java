@@ -6,10 +6,16 @@ class CreateResponseBuilder {
     }
 
     static CreateResponse aSuccessfulResponseWithAccountIdentifier(String accountIdentifier) {
-        return new CreateResponse(true, accountIdentifier, null);
+        CreateResponse createResponse = new CreateResponse();
+        createResponse.setSuccess(true);
+        createResponse.setAccountIdentifier(accountIdentifier);
+        return createResponse;
     }
 
     static CreateResponse aFailureResponseWithErrorCode(String errorCode) {
-        return new CreateResponse(false, null, errorCode);
+        CreateResponse createResponse = new CreateResponse();
+        createResponse.setSuccess(false);
+        createResponse.setErrorCode(errorCode);
+        return createResponse;
     }
 }

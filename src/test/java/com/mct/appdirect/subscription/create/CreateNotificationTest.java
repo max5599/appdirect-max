@@ -1,37 +1,34 @@
 package com.mct.appdirect.subscription.create;
 
-import com.mct.appdirect.utils.FileUtils;
+import com.mct.appdirect.utils.FakeServer;
+import com.mct.appdirect.utils.FakeServerUtils;
 import com.mct.appdirect.utils.Integrationtest;
-import com.vtence.molecule.WebServer;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aCreateResponse;
+import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CreateNotificationTest extends Integrationtest {
 
-    private final WebServer fakeServer = WebServer.create();
+    private FakeServer fakeServer;
 
     @Before
     public void setUp() throws Exception {
-        String json = FileUtils.readFileFromRelativePath(this, "createEvent.json");
-        fakeServer.start(((request, response) -> response.done(json)));
+        fakeServer = FakeServerUtils.startFakeServerWithJsonResponse(this, "createEvent.json");
     }
 
     @Test
-    @Ignore("Work in progress")
     public void shouldCreateAUserWithNotificationReceived() {
-        ResponseEntity<CreateResponse> createResponse = callCreateNotificationWithUrlParam(fakeServer.uri().toString());
+        ResponseEntity<CreateResponse> createResponse = callCreateNotificationWithUrlParam(fakeServer.getUrl());
 
         assertThat(createResponse.getStatusCode(), equalTo(HttpStatus.OK));
 
-        CreateResponse expectedResponse = aCreateResponse().withSuccess().withAccountIdentifier("abcd").build();
+        CreateResponse expectedResponse = aSuccessfulResponseWithAccountIdentifier("1");
         assertThat(createResponse.getBody(), equalTo(expectedResponse));
     }
 
@@ -41,6 +38,6 @@ public class CreateNotificationTest extends Integrationtest {
 
     @After
     public void tearDown() throws Exception {
-        fakeServer.stop();
+        fakeServer.shutdown();
     }
 }

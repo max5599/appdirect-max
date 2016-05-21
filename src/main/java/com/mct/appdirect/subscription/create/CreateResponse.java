@@ -1,17 +1,24 @@
 package com.mct.appdirect.subscription.create;
 
 import java.util.Objects;
-import java.util.Optional;
 
 class CreateResponse {
 
-    private final boolean success;
-    private final String accountIdentifier;
-    private final String errorCode;
+    private boolean success;
+    private String accountIdentifier;
+    private String errorCode;
 
-    CreateResponse(boolean success, String accountIdentifier, String errorCode) {
+    CreateResponse() {}
+
+    void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    void setAccountIdentifier(String accountIdentifier) {
         this.accountIdentifier = accountIdentifier;
+    }
+
+    void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 
@@ -19,12 +26,12 @@ class CreateResponse {
         return success;
     }
 
-    public Optional<String> getAccountIdentifier() {
-        return Optional.ofNullable(accountIdentifier);
+    public String getAccountIdentifier() {
+        return accountIdentifier;
     }
 
-    public Optional<String> getErrorCode() {
-        return Optional.ofNullable(errorCode);
+    public String getErrorCode() {
+        return errorCode;
     }
 
     @Override
