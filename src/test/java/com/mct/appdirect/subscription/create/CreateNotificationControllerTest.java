@@ -19,14 +19,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class CreateNotificationControllerTest {
 
+    private static final String SUBSCRIPTION_CREATE_URL = "/subscription/create";
+
     private final MockMvc mvc = MockMvcBuilders.standaloneSetup(new CreateNotificationController()).build();
 
     @Test
     public void shouldReturnOk() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/subscription/create")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
                 .accept(MediaType.APPLICATION_JSON)
                 .param("url", "http://appdirect/event/12345");
 
         mvc.perform(requestBuilder).andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenUrlParamIsMissing() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
+                .accept(MediaType.APPLICATION_JSON);
+
+        mvc.perform(requestBuilder).andExpect(status().isBadRequest());
     }
 }
