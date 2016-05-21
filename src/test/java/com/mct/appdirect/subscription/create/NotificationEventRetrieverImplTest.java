@@ -24,7 +24,12 @@ public class NotificationEventRetrieverImplTest {
     @Test
     public void shouldCallUrlAndReturnedParsedBody() throws Exception {
         String eventUrl = fakeServer.getUrl();
-        Event returnedEvent = anEvent().withType("SUBSCRIPTION_ORDER").build();
+        Event returnedEvent = anEvent()
+                .withType("SUBSCRIPTION_ORDER")
+                .withEmail("sampletester@testco.com")
+                .withFirstName("Sample")
+                .withLastName("Tester")
+                .build();
 
         assertThat(eventRetriever.retrieveEvent(eventUrl), equalTo(returnedEvent));
     }

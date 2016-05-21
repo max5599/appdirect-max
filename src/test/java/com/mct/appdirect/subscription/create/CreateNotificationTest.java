@@ -8,11 +8,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
+@SqlGroup({
+        @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:db/user/createTableUser.sql"),
+        @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:db/user/dropTableUser.sql")})
 public class CreateNotificationTest extends Integrationtest {
 
     private FakeServer fakeServer;
@@ -24,12 +30,13 @@ public class CreateNotificationTest extends Integrationtest {
 
     @Test
     public void shouldCreateAUserWithNotificationReceived() {
-        ResponseEntity<CreateResponse> createResponse = callCreateNotificationWithUrlParam(fakeServer.getUrl());
+        ResponseEntity<CreateResponse> response = callCreateNotificationWithUrlParam(fakeServer.getUrl());
 
-        assertThat(createResponse.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
 
-        CreateResponse expectedResponse = aSuccessfulResponseWithAccountIdentifier("1");
-        assertThat(createResponse.getBody(), equalTo(expectedResponse));
+        CreateResponse createResponse = response.getBody();
+        assertThat(createResponse.isSuccess(), equalTo(true));
+        assertThat(createResponse.getAccountIdentifier(), not(isEmptyOrNullString()));
     }
 
     private ResponseEntity<CreateResponse> callCreateNotificationWithUrlParam(String urlParam) {

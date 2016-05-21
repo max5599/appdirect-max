@@ -5,13 +5,18 @@ import java.util.Objects;
 class Event {
 
     private String type;
+    private Creator creator;
 
-    public Event() {
-
+    void setType(String type) {
+        this.type = type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    void setCreator(Creator creator) {
+        this.creator = creator;
+    }
+
+    Creator getCreator() {
+        return creator;
     }
 
     @Override
@@ -19,18 +24,20 @@ class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(type, event.type);
+        return Objects.equals(type, event.type) &&
+                Objects.equals(creator, event.creator);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type);
+        return Objects.hash(type, creator);
     }
 
     @Override
     public String toString() {
         return "Event{" +
                 "type='" + type + '\'' +
+                ", creator=" + creator +
                 '}';
     }
 }
