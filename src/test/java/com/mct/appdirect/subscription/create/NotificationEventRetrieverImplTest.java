@@ -5,7 +5,6 @@ import com.mct.appdirect.utils.FakeServerUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.web.client.RestTemplate;
 
 import static com.mct.appdirect.subscription.create.EventBuilder.anEvent;
 import static org.hamcrest.Matchers.equalTo;
@@ -13,7 +12,7 @@ import static org.junit.Assert.assertThat;
 
 public class NotificationEventRetrieverImplTest {
 
-    private final NotificationEventRetrieverImpl eventRetriever = new NotificationEventRetrieverImpl(new RestTemplate());
+    private final NotificationEventRetrieverImpl eventRetriever = new NotificationEventRetrieverImpl();
 
     private FakeServer fakeServer;
 

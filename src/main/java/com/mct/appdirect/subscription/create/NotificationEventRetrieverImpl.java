@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class NotificationEventRetrieverImpl implements NotificationEventRetriever {
+class NotificationEventRetrieverImpl implements NotificationEventRetriever {
 
     private final RestTemplate restTemplate;
 
-    public NotificationEventRetrieverImpl(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public NotificationEventRetrieverImpl() {
+        this.restTemplate = new RestTemplate();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.mct.appdirect.subscription.create;
 
+import java.util.Objects;
 import java.util.Optional;
 
 class UserCreationResult {
@@ -12,7 +13,7 @@ class UserCreationResult {
         this.errorCode = errorCode;
     }
 
-    static UserCreationResult userCreationSuccedWithId(String userId) {
+    static UserCreationResult userCreationSucceedWithId(String userId) {
         return new UserCreationResult(userId, null);
     }
 
@@ -26,5 +27,27 @@ class UserCreationResult {
 
     Optional<String> getErrorCode() {
         return Optional.ofNullable(errorCode);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserCreationResult that = (UserCreationResult) o;
+        return Objects.equals(userId, that.userId) &&
+                Objects.equals(errorCode, that.errorCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, errorCode);
+    }
+
+    @Override
+    public String toString() {
+        return "UserCreationResult{" +
+                "userId='" + userId + '\'' +
+                ", errorCode='" + errorCode + '\'' +
+                '}';
     }
 }

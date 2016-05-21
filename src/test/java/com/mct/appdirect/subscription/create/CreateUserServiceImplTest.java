@@ -5,7 +5,7 @@ import org.junit.Test;
 import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aFailureResponseWithErrorCode;
 import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
-import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSuccedWithId;
+import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSucceedWithId;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -13,7 +13,7 @@ public class CreateUserServiceImplTest {
 
     @Test
     public void shouldReturnASuccessfulResponseWithAccountIdentifierIfCreationSucceed() {
-        CreateUserServiceImpl createUserService = createUserService(event -> userCreationSuccedWithId("123abc"));
+        CreateUserServiceImpl createUserService = createUserService(event -> userCreationSucceedWithId("123abc"));
 
         CreateResponse createResponse = createUserService.createUserWithEventURL("eventURL");
 
