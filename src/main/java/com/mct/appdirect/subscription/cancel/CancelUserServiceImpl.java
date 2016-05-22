@@ -1,14 +1,17 @@
 package com.mct.appdirect.subscription.cancel;
 
 import com.mct.appdirect.response.BaseResponse;
+import com.mct.appdirect.response.BaseResponseBuilder;
+import com.mct.appdirect.response.ErrorResponseBuilder;
+import com.mct.appdirect.subscription.Event;
 import com.mct.appdirect.subscription.NotificationEventRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.mct.appdirect.response.BaseResponseBuilder.aSuccessfulResponse;
+import java.util.Optional;
 
 @Service
-public class CancelUserServiceImpl implements CancelUserService {
+class CancelUserServiceImpl implements CancelUserService {
 
     private final NotificationEventRetriever notificationEventRetriever;
     private final CancelUserRepository cancelUserRepository;
@@ -21,6 +24,10 @@ public class CancelUserServiceImpl implements CancelUserService {
 
     @Override
     public BaseResponse cancelUserWithEventURL(String eventUrl) {
-        return aSuccessfulResponse();
+        Event event = notificationEventRetriever.retrieveEvent(eventUrl);
+        Optional<String> error = cancelUserRepository.cancelUserAndReturnErrorIfPresent(event);
+
+        Optional<BaseResponse> errorResponse = error.map(ErrorResponseBuilder::aFailureResponseWithErrorCode);
+        return errorResponse.orElseGet(BaseResponseBuilder::aSuccessfulResponse);
     }
 }
