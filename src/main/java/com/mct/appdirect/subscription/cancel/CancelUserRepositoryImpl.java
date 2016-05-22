@@ -28,7 +28,8 @@ class CancelUserRepositoryImpl implements CancelUserRepository {
     }
 
     private Optional<String> cancelUserWithId(int accountIdentifier) {
-        jdbcTemplate.update("UPDATE user SET cancelled=1 WHERE id=?", accountIdentifier);
-        return empty();
+        int nbUpdates = jdbcTemplate.update("UPDATE user SET cancelled=1 WHERE id=?", accountIdentifier);
+
+        return nbUpdates > 0 ? empty() : of(USER_NOT_FOUND);
     }
 }

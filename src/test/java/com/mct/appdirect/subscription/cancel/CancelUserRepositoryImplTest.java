@@ -41,4 +41,13 @@ public class CancelUserRepositoryImplTest extends RepositoryTest {
 
         assertThat(countRowsInTableWhere(jdbcTemplate, "user", "id=1 and not cancelled"), equalTo(1));
     }
+
+    @Test
+    public void shouldReturnUserNotFoundIfUserDoesNotExist() {
+        Optional<String> error = repository.cancelUserAndReturnErrorIfPresent("56464");
+
+        assertThat(error, equalTo(of(USER_NOT_FOUND)));
+
+        assertThat(countRowsInTableWhere(jdbcTemplate, "user", "id=1 and not cancelled"), equalTo(1));
+    }
 }
