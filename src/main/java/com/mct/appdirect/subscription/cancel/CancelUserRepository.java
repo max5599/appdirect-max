@@ -5,7 +5,7 @@ import com.mct.appdirect.subscription.Event;
 import java.util.Optional;
 
 @FunctionalInterface
-public interface CancelUserRepository {
+interface CancelUserRepository {
 
     Optional<String> cancelUserAndReturnErrorIfPresent(Event event);
 }

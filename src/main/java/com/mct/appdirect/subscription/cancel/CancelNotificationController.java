@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CancelNotificationController {
+class CancelNotificationController {
 
     private final Validator<String> urlValidator;
     private final CancelUserService cancelUserService;
