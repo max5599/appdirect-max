@@ -19,4 +19,8 @@ public abstract class IntegrationTest {
     protected int port;
 
     protected final RestTemplate template = new TestRestTemplate();
+
+    protected String getBaseUrl() {
+        return "http://localhost:" + port;
+    }
 }
