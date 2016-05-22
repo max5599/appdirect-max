@@ -9,14 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 
+import static com.mct.appdirect.response.ErrorResponseBuilder.USER_ALREADY_EXISTS;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSucceedWithId;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 @Repository
 class CreateUserRepositoryImpl implements CreateUserRepository {
-
-    private static final String ERROR_USER_ALREADY_EXISTS = "USER_ALREADY_EXISTS";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -40,7 +39,7 @@ class CreateUserRepositoryImpl implements CreateUserRepository {
 
             return userCreationSucceedWithId(keyHolder.getKey().toString());
         } catch (DuplicateKeyException e) {
-            return userCreationFailedWithError(ERROR_USER_ALREADY_EXISTS);
+            return userCreationFailedWithError(USER_ALREADY_EXISTS);
         }
     }
 }

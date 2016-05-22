@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.mct.appdirect.error.ErrorResponseBuilder.internalErrorResponse;
+import static com.mct.appdirect.response.ErrorResponseBuilder.internalErrorResponse;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 

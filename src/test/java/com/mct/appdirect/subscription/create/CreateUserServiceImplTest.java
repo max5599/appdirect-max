@@ -4,7 +4,7 @@ import com.mct.appdirect.response.BaseResponse;
 import com.mct.appdirect.response.ErrorResponse;
 import org.junit.Test;
 
-import static com.mct.appdirect.error.ErrorResponseBuilder.aFailureResponseWithErrorCode;
+import static com.mct.appdirect.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
 import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSucceedWithId;

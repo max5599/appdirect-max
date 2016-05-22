@@ -5,7 +5,7 @@ import com.mct.appdirect.response.ErrorResponse;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import static com.mct.appdirect.error.ErrorResponseBuilder.internalErrorResponse;
+import static com.mct.appdirect.response.ErrorResponseBuilder.internalErrorResponse;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;

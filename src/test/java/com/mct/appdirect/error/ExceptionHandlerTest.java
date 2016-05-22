@@ -5,7 +5,7 @@ import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
-import static com.mct.appdirect.error.ErrorResponseBuilder.internalErrorResponse;
+import static com.mct.appdirect.response.ErrorResponseBuilder.internalErrorResponse;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.http.HttpStatus.OK;
