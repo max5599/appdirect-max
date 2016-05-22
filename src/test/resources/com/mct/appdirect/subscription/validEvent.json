@@ -1,0 +1,32 @@
+{
+  "type": "SUBSCRIPTION_ORDER",
+  "marketplace": {
+    "baseUrl": "https://www.acme.com",
+    "partner": "APPDIRECT"
+  },
+  "creator": {
+    "address": {
+      "firstName": "Sample",
+      "fullName": "Sample Tester",
+      "lastName": "Tester"
+    },
+    "email": "sampletester@testco.com",
+    "firstName": "Sample",
+    "language": "en",
+    "lastName": "Tester",
+    "openId": "https://www.acme.com/openid/id/211aa367-f53b-4606-8887-80a381e0ef69",
+    "uuid": "211aa369-f53b-4606-8887-80a361e0ef66"
+  },
+  "payload": {
+    "company": {
+      "country": "US",
+      "name": "Sample Testing co.",
+      "uuid": "bd58b532-323b-4627-a828-57729489b27b",
+      "website": "www.testerco.com"
+    },
+    "order": {
+      "editionCode": "FREE",
+      "pricingDuration": "MONTHLY"
+    }
+  }
+}

@@ -26,7 +26,7 @@ public class NotificationEventRetrieverImplTest {
 
     @Test
     public void shouldCallUrlAndReturnedParsedBody() throws Exception {
-        fakeServer = startFakeServerWithJsonResponse(this, "createEvent.json");
+        fakeServer = startFakeServerWithJsonResponse(this, "validEvent.json");
 
         String eventUrl = fakeServer.getUrl();
         Event event = eventRetriever.retrieveEvent(eventUrl);
