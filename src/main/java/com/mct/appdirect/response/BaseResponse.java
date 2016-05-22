@@ -2,7 +2,7 @@ package com.mct.appdirect.response;
 
 import java.util.Objects;
 
-public abstract class BaseResponse {
+public class BaseResponse {
 
     private boolean success;
 
