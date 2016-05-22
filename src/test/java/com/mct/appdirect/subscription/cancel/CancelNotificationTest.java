@@ -6,14 +6,15 @@ import com.mct.appdirect.utils.FakeServerUtils;
 import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.http.HttpStatus.OK;
 
+@Sql({"classpath:db/user/insertUser1.sql"})
 public class CancelNotificationTest extends IntegrationTest {
 
     private FakeServer fakeServer;
@@ -24,7 +25,6 @@ public class CancelNotificationTest extends IntegrationTest {
     }
 
     @Test
-    @Ignore("WIP")
     public void shouldCreateAUserWithNotificationReceived() {
         ResponseEntity<BaseResponse> response = callCancelNotificationWithUrlParam(fakeServer.getUrl());
 
