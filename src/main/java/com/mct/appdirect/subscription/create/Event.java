@@ -1,17 +1,19 @@
 package com.mct.appdirect.subscription.create;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 class Event {
 
-    private String type;
-    private Creator creator;
+    private final String type;
+    private final Creator creator;
 
-    void setType(String type) {
+    @JsonCreator
+    public Event(@JsonProperty(value = "type", required = true) String type,
+                 @JsonProperty(value = "creator", required = true) Creator creator) {
         this.type = type;
-    }
-
-    void setCreator(Creator creator) {
         this.creator = creator;
     }
 

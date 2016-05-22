@@ -1,18 +1,22 @@
 package com.mct.appdirect.subscription.create;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 class Creator {
-    private String email;
+    private final String email;
     private String firstName;
     private String lastName;
 
-    String getEmail() {
-        return email;
+    @JsonCreator
+    public Creator(@JsonProperty("email") String email) {
+        this.email = email;
     }
 
-    void setEmail(String email) {
-        this.email = email;
+    String getEmail() {
+        return email;
     }
 
     String getFirstName() {
