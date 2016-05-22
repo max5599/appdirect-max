@@ -2,7 +2,7 @@ package com.mct.appdirect.subscription.create;
 
 import com.mct.appdirect.utils.FakeServer;
 import com.mct.appdirect.utils.FakeServerUtils;
-import com.mct.appdirect.utils.Integrationtest;
+import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 
 @SqlGroup({
         @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:db/user/cleanTables.sql")})
-public class CreateNotificationTest extends Integrationtest {
+public class CreateNotificationTest extends IntegrationTest {
 
     private FakeServer fakeServer;
 
