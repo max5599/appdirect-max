@@ -26,13 +26,7 @@ public class ExceptionHandlerControllerAdviceTest {
 
         exceptionHandler.handleInternalError(ex, mockResponse);
 
-        assertThat(mockResponse.getStatus(), equalTo(200));
-        assertThat(mockResponse.getContentType(), equalTo(APPLICATION_JSON_VALUE));
-
-        ErrorResponse error = readContent(mockResponse);
-        assertThat(error, equalTo(internalErrorResponse()));
-
-        verify(errorLogger).logException("UNKNOWN_ERROR", ex);
+        assertErrorInResponseAndErrorLogging(mockResponse, internalErrorResponse(), ex);
     }
 
     @Test
@@ -42,13 +36,17 @@ public class ExceptionHandlerControllerAdviceTest {
 
         exceptionHandler.handleInvalidEventException(ex, mockResponse);
 
-        assertThat(mockResponse.getStatus(), equalTo(200));
-        assertThat(mockResponse.getContentType(), equalTo(APPLICATION_JSON_VALUE));
+        assertErrorInResponseAndErrorLogging(mockResponse, invalidResponse(), ex);
+    }
 
-        ErrorResponse error = readContent(mockResponse);
-        assertThat(error, equalTo(invalidResponse()));
+    private void assertErrorInResponseAndErrorLogging(MockHttpServletResponse response, ErrorResponse expectedError, RuntimeException exceptionToHandle) throws java.io.IOException {
+        assertThat(response.getStatus(), equalTo(200));
+        assertThat(response.getContentType(), equalTo(APPLICATION_JSON_VALUE));
 
-        verify(errorLogger).logException("INVALID_RESPONSE", ex);
+        ErrorResponse error = readContent(response);
+        assertThat(error, equalTo(expectedError));
+
+        verify(errorLogger).logException(expectedError.getErrorCode(), exceptionToHandle);
     }
 
     private ErrorResponse readContent(MockHttpServletResponse mockResponse) throws java.io.IOException {
