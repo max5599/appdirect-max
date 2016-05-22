@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription.create;
+package com.mct.appdirect.subscription;
 
 import com.mct.appdirect.error.InvalidEventException;
 import com.mct.appdirect.error.TransportException;
@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.mct.appdirect.subscription.create.EventBuilder.anEvent;
+import static com.mct.appdirect.subscription.EventBuilder.anEvent;
 import static com.mct.appdirect.utils.FakeServerUtils.startFakeServerThatNeverRespond;
 import static com.mct.appdirect.utils.FakeServerUtils.startFakeServerWithJsonResponse;
 import static java.lang.String.format;

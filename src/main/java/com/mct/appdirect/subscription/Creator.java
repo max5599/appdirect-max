@@ -1,11 +1,11 @@
-package com.mct.appdirect.subscription.create;
+package com.mct.appdirect.subscription;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
-class Creator {
+public class Creator {
     private final String email;
     private String firstName;
     private String lastName;
@@ -15,23 +15,23 @@ class Creator {
         this.email = email;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 

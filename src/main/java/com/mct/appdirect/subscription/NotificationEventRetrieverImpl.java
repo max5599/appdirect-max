@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription.create;
+package com.mct.appdirect.subscription;
 
 import com.mct.appdirect.error.InvalidEventException;
 import com.mct.appdirect.error.TransportException;
@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import static java.lang.String.format;
 
 @Service
-class NotificationEventRetrieverImpl implements NotificationEventRetriever {
+public class NotificationEventRetrieverImpl implements NotificationEventRetriever {
 
     private final RestTemplate restTemplate;
 

@@ -2,6 +2,7 @@ package com.mct.appdirect.subscription.create;
 
 import com.mct.appdirect.response.BaseResponse;
 import com.mct.appdirect.response.ErrorResponse;
+import com.mct.appdirect.subscription.EventBuilder;
 import org.junit.Test;
 
 import static com.mct.appdirect.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;

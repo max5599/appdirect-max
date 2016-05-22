@@ -1,5 +1,6 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.subscription.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;

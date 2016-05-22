@@ -1,6 +1,6 @@
-package com.mct.appdirect.subscription.create;
+package com.mct.appdirect.subscription;
 
-class EventBuilder {
+public class EventBuilder {
 
     private String type;
     private String email;
@@ -9,31 +9,31 @@ class EventBuilder {
 
     private EventBuilder(){}
 
-    static EventBuilder anEvent() {
+    public static EventBuilder anEvent() {
         return new EventBuilder();
     }
 
-    EventBuilder withType(String type) {
+    public EventBuilder withType(String type) {
         this.type = type;
         return this;
     }
 
-    EventBuilder withEmail(String email) {
+    public EventBuilder withEmail(String email) {
         this.email = email;
         return this;
     }
 
-    EventBuilder withFirstName(String firstName) {
+    public EventBuilder withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    EventBuilder withLastName(String lastName) {
+    public EventBuilder withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    Event build() {
+    public Event build() {
         Creator creator = new Creator(email);
         creator.setFirstName(firstName);
         creator.setLastName(lastName);

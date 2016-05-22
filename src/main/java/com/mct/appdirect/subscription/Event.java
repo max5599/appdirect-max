@@ -1,11 +1,11 @@
-package com.mct.appdirect.subscription.create;
+package com.mct.appdirect.subscription;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
-class Event {
+public class Event {
 
     private final String type;
     private final Creator creator;
@@ -17,7 +17,7 @@ class Event {
         this.creator = creator;
     }
 
-    Creator getCreator() {
+    public Creator getCreator() {
         return creator;
     }
 

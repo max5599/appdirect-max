@@ -1,6 +1,7 @@
 package com.mct.appdirect.subscription.create;
 
 import com.mct.appdirect.Application;
+import com.mct.appdirect.subscription.Event;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static com.mct.appdirect.subscription.create.EventBuilder.anEvent;
+import static com.mct.appdirect.subscription.EventBuilder.anEvent;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
