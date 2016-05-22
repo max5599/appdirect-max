@@ -25,7 +25,7 @@ class ExceptionHandlerControllerAdvice {
 
     @ExceptionHandler(RuntimeException.class)
     public void handleInternalError(RuntimeException ex, HttpServletResponse response) throws IOException {
-        errorLogger.logException(ex);
+        errorLogger.logException("Internal error occured", ex);
 
         response.setStatus(OK.value());
         response.setContentType(APPLICATION_JSON_VALUE);

@@ -31,7 +31,7 @@ public class ExceptionHandlerControllerAdviceTest {
         ErrorResponse error = readContent(mockResponse);
         assertThat(error, equalTo(internalErrorResponse()));
 
-        verify(errorLogger).logException(ex);
+        verify(errorLogger).logException("Internal error occured", ex);
     }
 
     private ErrorResponse readContent(MockHttpServletResponse mockResponse) throws java.io.IOException {
