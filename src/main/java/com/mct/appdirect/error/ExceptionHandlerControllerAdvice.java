@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.mct.appdirect.response.ErrorResponseBuilder.internalErrorResponse;
+import static com.mct.appdirect.response.ErrorResponseBuilder.invalidResponse;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -23,18 +24,26 @@ class ExceptionHandlerControllerAdvice {
         this.errorLogger = errorLogger;
     }
 
+    @ExceptionHandler(InvalidEventException.class)
+    public void handleInvalidEventException(InvalidEventException ex, HttpServletResponse response) throws IOException {
+        logErrorAndSetupResponse(invalidResponse(), ex, response);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public void handleInternalError(RuntimeException ex, HttpServletResponse response) throws IOException {
-        errorLogger.logException("Internal error occured", ex);
+        logErrorAndSetupResponse(internalErrorResponse(), ex, response);
+    }
+
+    private void logErrorAndSetupResponse(ErrorResponse error, Throwable ex, HttpServletResponse response) throws IOException {
+        errorLogger.logException(error.getErrorCode(), ex);
 
         response.setStatus(OK.value());
         response.setContentType(APPLICATION_JSON_VALUE);
 
-        writeErrorToResponse(response);
+        writeErrorToResponse(response, error);
     }
 
-    private void writeErrorToResponse(HttpServletResponse response) throws IOException {
-        ErrorResponse error = internalErrorResponse();
+    private void writeErrorToResponse(HttpServletResponse response, ErrorResponse error) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue( response.getWriter(), error);
     }

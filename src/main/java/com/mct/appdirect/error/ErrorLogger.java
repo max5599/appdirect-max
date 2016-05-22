@@ -9,7 +9,7 @@ class ErrorLogger {
 
     private final Logger logger = LoggerFactory.getLogger(ErrorLogger.class);
 
-    void logException(String message, Exception ex) {
-        logger.error("Exception was thrown:", ex);
+    void logException(String message, Throwable ex) {
+        logger.error(message, ex);
     }
 }
