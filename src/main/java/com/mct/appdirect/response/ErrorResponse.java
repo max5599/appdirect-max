@@ -1,6 +1,4 @@
-package com.mct.appdirect.error;
-
-import com.mct.appdirect.response.BaseResponse;
+package com.mct.appdirect.response;
 
 import java.util.Objects;
 
@@ -12,7 +10,7 @@ public class ErrorResponse extends BaseResponse {
         return errorCode;
     }
 
-    void setErrorCode(String errorCode) {
+    public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 

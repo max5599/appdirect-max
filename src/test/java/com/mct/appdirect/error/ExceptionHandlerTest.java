@@ -1,5 +1,6 @@
 package com.mct.appdirect.error;
 
+import com.mct.appdirect.response.ErrorResponse;
 import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;

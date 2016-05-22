@@ -1,6 +1,7 @@
 package com.mct.appdirect.error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mct.appdirect.response.ErrorResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

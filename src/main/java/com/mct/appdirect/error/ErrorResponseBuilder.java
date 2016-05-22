@@ -1,5 +1,7 @@
 package com.mct.appdirect.error;
 
+import com.mct.appdirect.response.ErrorResponse;
+
 public class ErrorResponseBuilder {
 
     private ErrorResponseBuilder() {}
