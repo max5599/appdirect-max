@@ -11,13 +11,13 @@ import java.util.Optional;
 
 import static com.mct.appdirect.subscription.EventBuilder.anEvent;
 import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static org.springframework.test.jdbc.JdbcTestUtils.countRowsInTableWhere;
-
-@Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:db/user/insertUser1.sql")
+@Sql(executionPhase = BEFORE_TEST_METHOD, scripts = {"classpath:db/user/cleanTables.sql","classpath:db/user/insertUser1.sql"})
 public class CancelUserRepositoryImplTest extends RepositoryTest {
 
     @Autowired
@@ -36,5 +36,14 @@ public class CancelUserRepositoryImplTest extends RepositoryTest {
         assertThat(error, is(empty()));
 
         assertThat(countRowsInTableWhere(jdbcTemplate, "user", "id=1 and cancelled"), equalTo(1));
+    }
+
+    @Test
+    public void shouldReturnAccountNotFoundWhenAccountIsMissingInTheEvent() throws Exception {
+        Event event = anEvent().build();
+
+        Optional<String> error = repository.cancelUserAndReturnErrorIfPresent(event);
+
+        assertThat(error, equalTo(of("ACCOUNT_NOT_FOUND")));
     }
 }

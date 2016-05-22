@@ -1,6 +1,9 @@
 package com.mct.appdirect.subscription;
 
 import java.util.Objects;
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 public class Payload {
 
@@ -10,8 +13,8 @@ public class Payload {
         this.account = account;
     }
 
-    public Account getAccount() {
-        return account;
+    public Optional<Account> getAccount() {
+        return ofNullable(account);
     }
 
     @Override
