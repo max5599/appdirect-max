@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription.create;
+package com.mct.appdirect.subscription.cancel;
 
 import com.mct.appdirect.utils.Validator;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
+import static com.mct.appdirect.response.BaseResponseBuilder.aSuccessfulResponse;
 import static com.mct.appdirect.utils.AssertNestedServetException.assertPerformRequestBuilderThrowRootCause;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,28 +21,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MockServletContext.class)
 @WebAppConfiguration
-public class CreateNotificationControllerTest {
+public class CancelNotificationControllerTest {
 
-    private static final String SUBSCRIPTION_CREATE_URL = "/subscription/create";
+    private static final String SUBSCRIPTION_CANCEL_URL = "/subscription/cancel";
 
     @Test
     public void shouldReturnOkWithTheResponse() throws Exception {
         MockMvc mvc = createMockMvcWithAlwaysValidURL();
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CANCEL_URL)
                 .accept(MediaType.APPLICATION_JSON)
                 .param("url", "http://appdirect/event/12345");
 
         mvc.perform(requestBuilder)
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"accountIdentifier\":\"123abc\", \"success\":true}"));
+                .andExpect(content().json("{\"success\":true}"));
     }
 
     @Test
     public void shouldReturnBadRequestWhenUrlParamIsMissing() throws Exception {
         MockMvc mvc = createMockMvcWithAlwaysValidURL();
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CANCEL_URL)
                 .accept(MediaType.APPLICATION_JSON);
 
         mvc.perform(requestBuilder).andExpect(status().isBadRequest());
@@ -52,7 +52,7 @@ public class CreateNotificationControllerTest {
     public void shouldReturnBadRequestWhenUrlParamIsNotAValidUrl() throws Exception {
         MockMvc mvc = createMockMvcWithNeverValidURL();
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CREATE_URL)
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(SUBSCRIPTION_CANCEL_URL)
                 .accept(MediaType.APPLICATION_JSON)
                 .param("url", "notAValidUrl");
 
@@ -68,8 +68,8 @@ public class CreateNotificationControllerTest {
     }
 
     private MockMvc createMockMvc(Validator<String> urlValidator) {
-        CreateUserService createUserService = eventUrl -> aSuccessfulResponseWithAccountIdentifier("123abc");
-        CreateNotificationController createNotificationController = new CreateNotificationController(urlValidator, createUserService);
-        return MockMvcBuilders.standaloneSetup(createNotificationController).build();
+        CancelUserService cancelUserService = eventUrl -> aSuccessfulResponse();
+        CancelNotificationController cancelNotificationController = new CancelNotificationController(urlValidator, cancelUserService);
+        return MockMvcBuilders.standaloneSetup(cancelNotificationController).build();
     }
 }
