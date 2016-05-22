@@ -34,13 +34,9 @@ class EventBuilder {
     }
 
     Event build() {
-        Event event = new Event();
-        event.setType(type);
-        Creator creator = new Creator();
-        creator.setEmail(email);
+        Creator creator = new Creator(email);
         creator.setFirstName(firstName);
         creator.setLastName(lastName);
-        event.setCreator(creator);
-        return event;
+        return new Event(type, creator);
     }
 }

@@ -34,6 +34,6 @@ public class CreateUserServiceImplTest {
     }
 
     private CreateUserServiceImpl createUserService(CreateUserRepository createUserRepository) {
-        return new CreateUserServiceImpl(eventUrl -> new Event(), createUserRepository);
+        return new CreateUserServiceImpl(eventUrl -> EventBuilder.anEvent().build(), createUserRepository);
     }
 }
