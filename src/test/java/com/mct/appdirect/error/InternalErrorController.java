@@ -17,4 +17,9 @@ public class InternalErrorController {
         throw new InvalidEventException("Invalid event", new Exception("invalid"));
     }
 
+    @RequestMapping("/exception/transport-error")
+    public String throwTransportException() {
+        throw new TransportException("Transport Exception", new Exception("Timeout"));
+    }
+
 }

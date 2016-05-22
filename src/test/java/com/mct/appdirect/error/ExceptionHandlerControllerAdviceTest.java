@@ -5,8 +5,7 @@ import com.mct.appdirect.response.ErrorResponse;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.internalErrorResponse;
-import static com.mct.appdirect.response.ErrorResponseBuilder.invalidResponse;
+import static com.mct.appdirect.response.ErrorResponseBuilder.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.mock;
@@ -37,6 +36,16 @@ public class ExceptionHandlerControllerAdviceTest {
         exceptionHandler.handleInvalidEventException(ex, mockResponse);
 
         assertErrorInResponseAndErrorLogging(mockResponse, invalidResponse(), ex);
+    }
+
+    @Test
+    public void shouldMapTransportErrorToErrorResponseAndLogError() throws Exception {
+        TransportException ex = new TransportException("Transport exception", new Exception("Timeout"));
+        MockHttpServletResponse mockResponse = new MockHttpServletResponse();
+
+        exceptionHandler.handleTransportException(ex, mockResponse);
+
+        assertErrorInResponseAndErrorLogging(mockResponse, transportErrorResponse(), ex);
     }
 
     private void assertErrorInResponseAndErrorLogging(MockHttpServletResponse response, ErrorResponse expectedError, RuntimeException exceptionToHandle) throws java.io.IOException {

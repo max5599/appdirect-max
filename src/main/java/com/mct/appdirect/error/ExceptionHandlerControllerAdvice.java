@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.internalErrorResponse;
-import static com.mct.appdirect.response.ErrorResponseBuilder.invalidResponse;
+import static com.mct.appdirect.response.ErrorResponseBuilder.*;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -27,6 +26,11 @@ class ExceptionHandlerControllerAdvice {
     @ExceptionHandler(InvalidEventException.class)
     public void handleInvalidEventException(InvalidEventException ex, HttpServletResponse response) throws IOException {
         logErrorAndSetupResponse(invalidResponse(), ex, response);
+    }
+
+    @ExceptionHandler(TransportException.class)
+    public void handleTransportException(TransportException ex, HttpServletResponse response) throws IOException {
+        logErrorAndSetupResponse(transportErrorResponse(), ex, response);
     }
 
     @ExceptionHandler(RuntimeException.class)
