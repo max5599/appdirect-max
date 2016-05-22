@@ -1,15 +1,12 @@
 package com.mct.appdirect.subscription.cancel;
 
-import com.mct.appdirect.subscription.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.ACCOUNT_NOT_FOUND;
 import static java.util.Optional.empty;
-import static java.util.Optional.of;
 
 @Repository
 class CancelUserRepositoryImpl implements CancelUserRepository {
@@ -22,10 +19,8 @@ class CancelUserRepositoryImpl implements CancelUserRepository {
     }
 
     @Override
-    public Optional<String> cancelUserAndReturnErrorIfPresent(Event event) {
-        return event.getPayload().getAccount().map(account -> cancelUserWithId(account.getAccountIdentifier()))
-                .orElseGet(() -> of(ACCOUNT_NOT_FOUND));
-
+    public Optional<String> cancelUserAndReturnErrorIfPresent(String accountIdentifier) {
+        return cancelUserWithId(accountIdentifier);
     }
 
     private Optional<String> cancelUserWithId(String accountIdentifier) {

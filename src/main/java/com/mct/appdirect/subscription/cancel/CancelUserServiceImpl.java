@@ -3,6 +3,7 @@ package com.mct.appdirect.subscription.cancel;
 import com.mct.appdirect.response.BaseResponse;
 import com.mct.appdirect.response.BaseResponseBuilder;
 import com.mct.appdirect.response.ErrorResponseBuilder;
+import com.mct.appdirect.subscription.Account;
 import com.mct.appdirect.subscription.Event;
 import com.mct.appdirect.subscription.NotificationEventRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import static com.mct.appdirect.response.ErrorResponseBuilder.ACCOUNT_NOT_FOUND;
+import static com.mct.appdirect.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
 
 @Service
 class CancelUserServiceImpl implements CancelUserService {
@@ -28,13 +30,14 @@ class CancelUserServiceImpl implements CancelUserService {
     public BaseResponse cancelUserWithEventURL(String eventUrl) {
         Event event = notificationEventRetriever.retrieveEvent(eventUrl);
 
-        if (!event.getPayload().getAccount().isPresent()) {
-            return ErrorResponseBuilder.aFailureResponseWithErrorCode(ACCOUNT_NOT_FOUND);
+        Optional<Account> account = event.getPayload().getAccount();
+        if (!account.isPresent()) {
+            return aFailureResponseWithErrorCode(ACCOUNT_NOT_FOUND);
         }
 
-        Optional<String> error = cancelUserRepository.cancelUserAndReturnErrorIfPresent(event);
+        Optional<BaseResponse> errorResponse = cancelUserRepository.cancelUserAndReturnErrorIfPresent(account.get().getAccountIdentifier())
+                .map(ErrorResponseBuilder::aFailureResponseWithErrorCode);
 
-        Optional<BaseResponse> errorResponse = error.map(ErrorResponseBuilder::aFailureResponseWithErrorCode);
         return errorResponse.orElseGet(BaseResponseBuilder::aSuccessfulResponse);
     }
 }
