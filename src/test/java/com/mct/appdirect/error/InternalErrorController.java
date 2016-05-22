@@ -22,4 +22,9 @@ public class InternalErrorController {
         throw new TransportException("Transport Exception", new Exception("Timeout"));
     }
 
+    @RequestMapping("/exception/illegal-argument")
+    public String throwIllegalArgumentException() {
+        throw new IllegalArgumentException("Illegal argument");
+    }
+
 }

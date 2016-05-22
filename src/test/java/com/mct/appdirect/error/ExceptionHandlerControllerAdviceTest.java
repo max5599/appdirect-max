@@ -48,6 +48,15 @@ public class ExceptionHandlerControllerAdviceTest {
         assertErrorInResponseAndErrorLogging(mockResponse, transportErrorResponse(), ex);
     }
 
+    @Test
+    public void shouldLogErrorForIllegalArgument() throws Exception {
+        IllegalArgumentException ex = new IllegalArgumentException("Illegal Argument");
+
+        exceptionHandler.handleIllegalArgumentException(ex);
+
+        verify(errorLogger).logException("BAD_REQUEST", ex);
+    }
+
     private void assertErrorInResponseAndErrorLogging(MockHttpServletResponse response, ErrorResponse expectedError, RuntimeException exceptionToHandle) throws java.io.IOException {
         assertThat(response.getStatus(), equalTo(200));
         assertThat(response.getContentType(), equalTo(APPLICATION_JSON_VALUE));

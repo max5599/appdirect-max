@@ -12,8 +12,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.util.NestedServletException;
 
 import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
+import static junit.framework.TestCase.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,7 +60,14 @@ public class CreateNotificationControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .param("url", "notAValidUrl");
 
-        mvc.perform(requestBuilder).andExpect(status().isBadRequest());
+        try {
+            mvc.perform(requestBuilder);
+            fail("Excepted a NestedServletException to be thrown");
+        }catch(NestedServletException e) {
+            Throwable rootCause = e.getRootCause();
+            assertThat(rootCause, instanceOf(IllegalArgumentException.class));
+            assertThat(rootCause.getMessage(), is("The 'url' parameter is not a valid url"));
+        }
     }
 
     private MockMvc createMockMvcWithAlwaysValidURL() {

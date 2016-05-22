@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import static com.mct.appdirect.response.ErrorResponseBuilder.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
 public class ExceptionHandlerTest extends IntegrationTest {
@@ -34,5 +35,12 @@ public class ExceptionHandlerTest extends IntegrationTest {
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo(transportErrorResponse()));
+    }
+
+    @Test
+    public void shouldMapIllegalArgumentToABadRequest() {
+        ResponseEntity<Void> response = template.getForEntity(getBaseUrl() + "/exception/illegal-argument", Void.class);
+
+        assertThat(response.getStatusCode(), equalTo(BAD_REQUEST));
     }
 }
