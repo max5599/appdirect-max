@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.mct.appdirect.response.ErrorResponseBuilder.ACCOUNT_NOT_FOUND;
+
 @Service
 class CancelUserServiceImpl implements CancelUserService {
 
@@ -25,6 +27,11 @@ class CancelUserServiceImpl implements CancelUserService {
     @Override
     public BaseResponse cancelUserWithEventURL(String eventUrl) {
         Event event = notificationEventRetriever.retrieveEvent(eventUrl);
+
+        if (!event.getPayload().getAccount().isPresent()) {
+            return ErrorResponseBuilder.aFailureResponseWithErrorCode(ACCOUNT_NOT_FOUND);
+        }
+
         Optional<String> error = cancelUserRepository.cancelUserAndReturnErrorIfPresent(event);
 
         Optional<BaseResponse> errorResponse = error.map(ErrorResponseBuilder::aFailureResponseWithErrorCode);

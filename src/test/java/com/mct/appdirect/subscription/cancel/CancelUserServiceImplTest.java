@@ -1,39 +1,50 @@
 package com.mct.appdirect.subscription.cancel;
 
 import com.mct.appdirect.response.BaseResponse;
-import com.mct.appdirect.response.ErrorResponse;
+import com.mct.appdirect.subscription.NotificationEventRetriever;
 import org.junit.Test;
 
 import static com.mct.appdirect.response.BaseResponseBuilder.aSuccessfulResponse;
+import static com.mct.appdirect.response.ErrorResponseBuilder.ACCOUNT_NOT_FOUND;
 import static com.mct.appdirect.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
 import static com.mct.appdirect.subscription.EventBuilder.anEvent;
-import static java.util.Optional.ofNullable;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class CancelUserServiceImplTest {
 
+    private NotificationEventRetriever eventWithAccountIdentifier = eventUrl -> anEvent().withAccountIdentifier("1").build();
+    private NotificationEventRetriever eventWithoutAccount = eventUrl -> anEvent().build();
+
+    private CancelUserRepository successfulCancellation = event -> empty();
+    private CancelUserRepository cancellationFailedForAccountNotFound = event -> of(ACCOUNT_NOT_FOUND);
+
     @Test
-    public void shouldReturnASuccessfulResponseIfCancellationSucceed() {
-        CancelUserServiceImpl cancelUserService = createCancelServiceWhichReturnError(null);
+    public void shouldReturnASuccessfulResponseIfEventIsValidAndCancellationSucceed() {
+        CancelUserServiceImpl service = new CancelUserServiceImpl(eventWithAccountIdentifier, successfulCancellation);
 
-        BaseResponse response = cancelUserService.cancelUserWithEventURL("eventURL");
-
-        BaseResponse expectedResponse = aSuccessfulResponse();
-        assertThat(response, equalTo(expectedResponse));
+        serviceMustReturn(service, aSuccessfulResponse());
     }
 
     @Test
     public void shouldReturnAFailureWithErrorCodeIfCancellationFailed() {
-        CancelUserServiceImpl cancelUserService = createCancelServiceWhichReturnError("USER_ALREADY_EXISTS");
+        CancelUserServiceImpl service = new CancelUserServiceImpl(eventWithAccountIdentifier, cancellationFailedForAccountNotFound);
 
-        BaseResponse response = cancelUserService.cancelUserWithEventURL("eventURL");
-
-        ErrorResponse expectedResponse = aFailureResponseWithErrorCode("USER_ALREADY_EXISTS");
-        assertThat(response, equalTo(expectedResponse));
+        serviceMustReturn(service, aFailureResponseWithErrorCode(ACCOUNT_NOT_FOUND));
     }
 
-    private CancelUserServiceImpl createCancelServiceWhichReturnError(String error) {
-        return new CancelUserServiceImpl(eventUrl -> anEvent().build(), event -> ofNullable(error));
+    @Test
+    public void shouldReturnAFailureIfThereNoAccountInTheEvent() {
+        CancelUserServiceImpl service = new CancelUserServiceImpl(eventWithoutAccount, cancellationFailedForAccountNotFound);
+
+        serviceMustReturn(service, aFailureResponseWithErrorCode(ACCOUNT_NOT_FOUND));
+    }
+
+    private void serviceMustReturn(CancelUserServiceImpl cancelUserService, BaseResponse expectedResponse) {
+        BaseResponse response = cancelUserService.cancelUserWithEventURL("eventURL");
+
+        assertThat(response, equalTo(expectedResponse));
     }
 }
