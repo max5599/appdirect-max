@@ -1,1 +1,1 @@
-INSERT INTO user(email) VALUES('max@ence.com');
+INSERT INTO user(id, email) VALUES(1, 'max@ence.com');
