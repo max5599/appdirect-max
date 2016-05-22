@@ -1,8 +1,10 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.response.BaseResponse;
+
 @FunctionalInterface
 interface CreateUserService {
 
-    CreateResponse createUserWithEventURL(String eventUrl);
+    BaseResponse createUserWithEventURL(String eventUrl);
 
 }

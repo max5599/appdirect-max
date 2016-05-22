@@ -1,7 +1,7 @@
 package com.mct.appdirect.subscription.create;
 
 import java.util.Objects;
-import java.util.Optional;
+import java.util.function.Function;
 
 class UserCreationResult {
 
@@ -21,12 +21,12 @@ class UserCreationResult {
         return new UserCreationResult(null, errorCode);
     }
 
-    Optional<String> getUserId() {
-        return Optional.ofNullable(userId);
-    }
-
-    Optional<String> getErrorCode() {
-        return Optional.ofNullable(errorCode);
+    <T> T map(Function<String, ? extends T> mapUserId, Function<String, ? extends T> mapErrorCode) {
+        if(userId != null) {
+            return mapUserId.apply(userId);
+        }else {
+            return mapErrorCode.apply(errorCode);
+        }
     }
 
     @Override

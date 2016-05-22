@@ -10,10 +10,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.Optional;
-
 import static com.mct.appdirect.subscription.create.EventBuilder.anEvent;
-import static java.util.Optional.empty;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
@@ -37,8 +34,7 @@ public class CreateUserRepositoryImplTest {
                 .build();
         UserCreationResult result = repository.createUser(event);
 
-        assertThat(result.getUserId(), not(empty()));
-        assertThat(result.getErrorCode(), is(empty()));
+        assertThat(result.map(id -> id, error -> error), not(isEmptyOrNullString()));
     }
 
     @Test
@@ -49,7 +45,6 @@ public class CreateUserRepositoryImplTest {
         repository.createUser(firstEvent);
         UserCreationResult result = repository.createUser(eventWithDuplicatedEmail);
 
-        assertThat(result.getUserId(), is(empty()));
-        assertThat(result.getErrorCode(), equalTo(Optional.of("USER_ALREADY_EXISTS")));
+        assertThat(result.map(id -> id, error -> error), equalTo("USER_ALREADY_EXISTS"));
     }
 }

@@ -1,8 +1,10 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.error.ErrorResponse;
+import com.mct.appdirect.response.BaseResponse;
 import org.junit.Test;
 
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aFailureResponseWithErrorCode;
+import static com.mct.appdirect.error.ErrorResponseBuilder.aFailureResponseWithErrorCode;
 import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSucceedWithId;
@@ -15,20 +17,20 @@ public class CreateUserServiceImplTest {
     public void shouldReturnASuccessfulResponseWithAccountIdentifierIfCreationSucceed() {
         CreateUserServiceImpl createUserService = createUserService(event -> userCreationSucceedWithId("123abc"));
 
-        CreateResponse createResponse = createUserService.createUserWithEventURL("eventURL");
+        BaseResponse response = createUserService.createUserWithEventURL("eventURL");
 
         CreateResponse expectedResponse = aSuccessfulResponseWithAccountIdentifier("123abc");
-        assertThat(createResponse, equalTo(expectedResponse));
+        assertThat(response, equalTo(expectedResponse));
     }
 
     @Test
     public void shouldReturnAFailureWithErrorCodeIfCreationFailed() {
         CreateUserServiceImpl createUserService = createUserService(event -> userCreationFailedWithError("USER_ALREADY_EXISTS"));
 
-        CreateResponse createResponse = createUserService.createUserWithEventURL("eventURL");
+        BaseResponse response = createUserService.createUserWithEventURL("eventURL");
 
-        CreateResponse expectedResponse = aFailureResponseWithErrorCode("USER_ALREADY_EXISTS");
-        assertThat(createResponse, equalTo(expectedResponse));
+        ErrorResponse expectedResponse = aFailureResponseWithErrorCode("USER_ALREADY_EXISTS");
+        assertThat(response, equalTo(expectedResponse));
     }
 
     private CreateUserServiceImpl createUserService(CreateUserRepository createUserRepository) {

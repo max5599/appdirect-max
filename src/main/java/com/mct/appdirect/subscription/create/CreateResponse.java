@@ -1,60 +1,39 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.response.BaseResponse;
+
 import java.util.Objects;
 
-class CreateResponse {
+class CreateResponse extends BaseResponse {
 
-    private boolean success;
     private String accountIdentifier;
-    private String errorCode;
-
-    CreateResponse() {}
-
-    void setSuccess(boolean success) {
-        this.success = success;
-    }
 
     void setAccountIdentifier(String accountIdentifier) {
         this.accountIdentifier = accountIdentifier;
-    }
-
-    void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public boolean isSuccess() {
-        return success;
     }
 
     public String getAccountIdentifier() {
         return accountIdentifier;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof CreateResponse)) return false;
+        if (!super.equals(o)) return false;
         CreateResponse that = (CreateResponse) o;
-        return success == that.success &&
-                Objects.equals(accountIdentifier, that.accountIdentifier) &&
-                Objects.equals(errorCode, that.errorCode);
+        return Objects.equals(accountIdentifier, that.accountIdentifier);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(success, accountIdentifier, errorCode);
+        return Objects.hash(super.hashCode(), accountIdentifier);
     }
 
     @Override
     public String toString() {
         return "CreateResponse{" +
-                "success=" + success +
-                ", accountIdentifier='" + accountIdentifier + '\'' +
-                ", errorCode='" + errorCode + '\'' +
+                "accountIdentifier='" + accountIdentifier + '\'' +
                 '}';
     }
 }

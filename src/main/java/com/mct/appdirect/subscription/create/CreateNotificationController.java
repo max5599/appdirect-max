@@ -1,5 +1,6 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.response.BaseResponse;
 import com.mct.appdirect.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ class CreateNotificationController {
     }
 
     @RequestMapping("/subscription/create")
-    public CreateResponse subscriptionCreate(@RequestParam(value = "url") String url) {
+    public BaseResponse subscriptionCreate(@RequestParam(value = "url") String url) {
         if (urlValidator.isInvalid(url)) {
             throw new IllegalArgumentException("The 'url' parameter is not a valid url");
         }
