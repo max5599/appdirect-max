@@ -6,6 +6,7 @@ public class EventBuilder {
     private String email;
     private String firstName;
     private String lastName;
+    private String accountIdentifier;
 
     private EventBuilder(){}
 
@@ -33,10 +34,21 @@ public class EventBuilder {
         return this;
     }
 
+    public EventBuilder withAccountIdentifier(String accountIdentifier) {
+        this.accountIdentifier = accountIdentifier;
+        return this;
+    }
+
     public Event build() {
         Creator creator = new Creator(email);
         creator.setFirstName(firstName);
         creator.setLastName(lastName);
-        return new Event(type, creator);
+
+        Payload payload = new Payload();
+        if (accountIdentifier != null) {
+            payload.setAccount(new Account(accountIdentifier));
+        }
+
+        return new Event(type, creator, payload);
     }
 }
