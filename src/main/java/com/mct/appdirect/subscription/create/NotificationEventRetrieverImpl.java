@@ -1,5 +1,7 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.error.InvalidEventException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,6 +16,10 @@ class NotificationEventRetrieverImpl implements NotificationEventRetriever {
 
     @Override
     public Event retrieveEvent(String eventUrl) {
-        return restTemplate.getForEntity(eventUrl, Event.class).getBody();
+        try {
+            return restTemplate.getForEntity(eventUrl, Event.class).getBody();
+        }catch (HttpMessageNotReadableException e) {
+            throw new InvalidEventException(String.format("Invalid event received for url %s", eventUrl), e);
+        }
     }
 }

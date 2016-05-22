@@ -1,6 +1,5 @@
 package com.mct.appdirect.subscription.create;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 class UserCreationResult {
@@ -27,20 +26,6 @@ class UserCreationResult {
         }else {
             return mapErrorCode.apply(errorCode);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserCreationResult that = (UserCreationResult) o;
-        return Objects.equals(userId, that.userId) &&
-                Objects.equals(errorCode, that.errorCode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, errorCode);
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.error.InvalidEventException;
 import com.mct.appdirect.utils.FakeServer;
 import com.mct.appdirect.utils.FakeServerUtils;
 import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.junit.rules.ExpectedException;
 
 import static com.mct.appdirect.subscription.create.EventBuilder.anEvent;
 import static org.hamcrest.Matchers.equalTo;
@@ -13,6 +15,9 @@ import static org.junit.Assert.assertThat;
 public class NotificationEventRetrieverImplTest {
 
     private final NotificationEventRetrieverImpl eventRetriever = new NotificationEventRetrieverImpl();
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     private FakeServer fakeServer;
 
@@ -32,19 +37,23 @@ public class NotificationEventRetrieverImplTest {
         assertThat(event, equalTo(returnedEvent));
     }
 
-    @Test(expected = HttpMessageNotReadableException.class)
+    @Test
     public void shouldThrowAHttpMessageNotReadableExceptionWhenEventIsInvalid() throws Exception {
-        fakeServer = FakeServerUtils.startFakeServerWithJsonResponse(this, "invalidEvent.json");
-
-        String eventUrl = fakeServer.getUrl();
-        eventRetriever.retrieveEvent(eventUrl);
+        assertThatAnInvalidEventExceptionIsThrownForResponse("invalidEvent.json");
     }
 
-    @Test(expected = HttpMessageNotReadableException.class)
+    @Test
     public void shouldThrowAJsonParseExceptionWhenResponseIsInvalid() throws Exception {
-        fakeServer = FakeServerUtils.startFakeServerWithJsonResponse(this, "invalid.json");
+        assertThatAnInvalidEventExceptionIsThrownForResponse("invalid.json");
+    }
 
+    private void assertThatAnInvalidEventExceptionIsThrownForResponse(String jsonLocation) throws Exception {
+        fakeServer = FakeServerUtils.startFakeServerWithJsonResponse(this, jsonLocation);
         String eventUrl = fakeServer.getUrl();
+
+        exception.expect(InvalidEventException.class);
+        exception.expectMessage(String.format("Invalid event received for url %s", eventUrl));
+
         eventRetriever.retrieveEvent(eventUrl);
     }
 
