@@ -26,7 +26,14 @@ public class HttpServletRequestAdapter implements HttpRequest {
 
     @Override
     public String getRequestUrl() {
-        return request.getRequestURI();
+        StringBuffer requestURL = request.getRequestURL();
+        String queryString = request.getQueryString();
+
+        if (queryString == null) {
+            return requestURL.toString();
+        } else {
+            return requestURL.append('?').append(queryString).toString();
+        }
     }
 
     @Override

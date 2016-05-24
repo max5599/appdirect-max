@@ -22,7 +22,7 @@ public class HttpServletRequestAdapterTest {
 
     @Test
     public void shouldAdaptGetRequestUrl() throws Exception {
-        assertThat(httpRequest.getRequestUrl(), equalTo("https://www.appdirect.com/api/billing/v1/orders"));
+        assertThat(httpRequest.getRequestUrl(), equalTo("http://localhost:654/api/billing/v1/orders"));
     }
 
     @Test
@@ -53,7 +53,8 @@ public class HttpServletRequestAdapterTest {
     }
 
     private MockHttpServletRequest createMockRequest() {
-        MockHttpServletRequest request = new MockHttpServletRequest("GET", "https://www.appdirect.com/api/billing/v1/orders");
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/api/billing/v1/orders");
+        request.setServerPort(654);
         request.addHeader("header1", "header1Value");
         request.addHeader("header2", "header2Value");
         request.setContentType("application/json");
