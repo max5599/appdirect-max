@@ -10,23 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-public class OAuthFilter extends OncePerRequestFilter {
-
-    private static final String CONSUMER_KEY = "oauth_consumer_key";
+class OAuthFilter extends OncePerRequestFilter {
 
     private final String securityConsumerKey;
 
-    public OAuthFilter(String securityConsumerKey) {
+    OAuthFilter(String securityConsumerKey) {
         this.securityConsumerKey = securityConsumerKey;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String consumerKey = ofNullable(request.getHeader(CONSUMER_KEY))
-                .orElseThrow(() -> new AccessDeniedException("No oauth consumer key provided"));
+        OAuthFields oAuthFields = ofNullable(request.getHeader(AUTHORIZATION))
+                .map(OAuthFields::new)
+                .orElseThrow(() -> new AccessDeniedException("No authorization header"));
 
-        if (!consumerKey.equals(securityConsumerKey)) {
+        if (!securityConsumerKey.equals(oAuthFields.getConsumerKey())) {
             throw new AccessDeniedException("Oauth consumer key is invalid");
         }
 

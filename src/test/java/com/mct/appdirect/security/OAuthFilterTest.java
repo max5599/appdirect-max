@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 public class OAuthFilterTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final MockHttpServletRequest request = new MockHttpServletRequest();
+    private final MockHttpServletRequest request = new MockHttpServletRequest("GET", "https://www.appdirect.com/api/billing/v1/orders");
     private final HttpServletResponse response = new MockHttpServletResponse();
     private final FilterChain filterChain = mock(FilterChain.class);
 
@@ -26,7 +27,7 @@ public class OAuthFilterTest {
 
     @Test
     public void shouldChainFilterIfRequestIsOk() throws Exception {
-        request.addHeader("oauth_consumer_key", "Dummy");
+        request.addHeader(AUTHORIZATION, "oauth_consumer_key=Dummy");
 
         oAuthFilter.doFilterInternal(request, response, filterChain);
 
@@ -34,9 +35,19 @@ public class OAuthFilterTest {
     }
 
     @Test
+    public void shouldThrowAnAccessDeniedExceptionIfAuthorizationHeaderIsAbsent() throws Exception {
+        thrown.expect(AccessDeniedException.class);
+        thrown.expectMessage("No authorization header");
+
+        oAuthFilter.doFilterInternal(request, response, filterChain);
+    }
+
+    @Test
     public void shouldThrowAnAccessDeniedExceptionIfConsumerKeyIsAbsent() throws Exception {
         thrown.expect(AccessDeniedException.class);
-        thrown.expectMessage("No oauth consumer key provided");
+        thrown.expectMessage("Oauth consumer key is invalid");
+
+        request.addHeader(AUTHORIZATION, "a_key=Dummy");
 
         oAuthFilter.doFilterInternal(request, response, filterChain);
     }
@@ -46,7 +57,7 @@ public class OAuthFilterTest {
         thrown.expect(AccessDeniedException.class);
         thrown.expectMessage("Oauth consumer key is invalid");
 
-        request.addHeader("oauth_consumer_key", "NotTheGoodOne");
+        request.addHeader(AUTHORIZATION, "oauth_consumer_key=NotAGoodOne");
 
         oAuthFilter.doFilterInternal(request, response, filterChain);
     }
