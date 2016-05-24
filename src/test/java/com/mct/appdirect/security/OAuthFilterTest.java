@@ -22,7 +22,7 @@ public class OAuthFilterTest {
     private final HttpServletResponse response = new MockHttpServletResponse();
     private final FilterChain filterChain = mock(FilterChain.class);
 
-    private final OAuthFilter oAuthFilter = new OAuthFilter();
+    private final OAuthFilter oAuthFilter = new OAuthFilter("Dummy");
 
     @Test
     public void shouldChainFilterIfRequestIsOk() throws Exception {
@@ -34,9 +34,19 @@ public class OAuthFilterTest {
     }
 
     @Test
-    public void shouldThrowASecurityExceptionIfConsumerKeyIsAbsent() throws Exception {
+    public void shouldThrowAnAccessDeniedExceptionIfConsumerKeyIsAbsent() throws Exception {
         thrown.expect(AccessDeniedException.class);
         thrown.expectMessage("No oauth consumer key provided");
+
+        oAuthFilter.doFilterInternal(request, response, filterChain);
+    }
+
+    @Test
+    public void shouldThrowAnAccessDeniedExceptionIfConsumerKeyIsNotTheGoodOne() throws Exception {
+        thrown.expect(AccessDeniedException.class);
+        thrown.expectMessage("Oauth consumer key is invalid");
+
+        request.addHeader("oauth_consumer_key", "NotTheGoodOne");
 
         oAuthFilter.doFilterInternal(request, response, filterChain);
     }
