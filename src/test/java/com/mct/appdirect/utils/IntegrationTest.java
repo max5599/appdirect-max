@@ -27,7 +27,7 @@ public abstract class IntegrationTest {
             "oauth_consumer_key=\"Dummy\"," +
             "oauth_signature_method=\"HMAC\"," +
             "oauth_version=\"1.0\"," +
-            "oauth_signature=\"IBlWhOm3PuDwaSdxE/Qu4RKPtVE=\"";
+            "oauth_signature=\"+27RjlWH0Nveix/6ta/x1T7WBY8=\"";
 
     @Value("${local.server.port}")
     private int port;

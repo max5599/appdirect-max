@@ -34,7 +34,7 @@ public class OAuthFieldsParserImplTest {
                 "oauth_version=\"1.0\"," +
                 "oauth_signature=\"IBlWhOm3PuDwaSdxE/Qu4RKPtVE=\"";
 
-        assertThat(oAuthFieldsParser.parse(completeOAuth), equalTo(of(new OAuthFields("Dummy"))));
+        assertThat(oAuthFieldsParser.parse(completeOAuth), equalTo(of(new OAuthFields("Dummy", "IBlWhOm3PuDwaSdxE/Qu4RKPtVE="))));
     }
 
 
