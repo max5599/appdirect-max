@@ -17,12 +17,10 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 class OAuthFilter extends OncePerRequestFilter {
 
-    private final String consumerKey;
-    private final String secret;
+    private final OAuthConsumer consumer;
 
     OAuthFilter(String consumerKey, String secret) {
-        this.consumerKey = consumerKey;
-        this.secret = secret;
+        consumer = new DefaultOAuthConsumer(consumerKey, secret);
     }
 
     @Override
@@ -39,7 +37,6 @@ class OAuthFilter extends OncePerRequestFilter {
     private boolean authorizationIsInvalid(HttpServletRequest request, String authorization) {
         try {
             HttpRequest httpRequest = new HttpServletRequestAdapter(request);
-            OAuthConsumer consumer = new DefaultOAuthConsumer(consumerKey, secret);
             consumer.sign(httpRequest);
 
             return !authorization.equals(httpRequest.getHeader(AUTHORIZATION));
