@@ -35,7 +35,7 @@ public class CreateNotificationTest extends IntegrationTest {
     }
 
     private ResponseEntity<CreateResponse> callCreateNotificationWithUrlParam(String urlParam) {
-        return template.getForEntity(urlForPath("/subscription/create?url={url}"), CreateResponse.class, urlParam);
+        return securedGet("/subscription/create?url={url}", CreateResponse.class, urlParam);
     }
 
     @After

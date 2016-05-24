@@ -35,7 +35,7 @@ public class CancelNotificationTest extends IntegrationTest {
     }
 
     private ResponseEntity<BaseResponse> callCancelNotificationWithUrlParam(String urlParam) {
-        return template.getForEntity(urlForPath("/subscription/cancel?url={url}"), BaseResponse.class, urlParam);
+        return securedGet("/subscription/cancel?url={url}", BaseResponse.class, urlParam);
     }
 
     @After
