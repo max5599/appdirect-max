@@ -6,8 +6,6 @@ import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,18 +22,15 @@ public class CreateNotificationTest extends IntegrationTest {
     }
 
     @Test
-    public void shouldCreateAUserWithNotificationReceived() {
-        ResponseEntity<CreateResponse> response = callCreateNotificationWithUrlParam(fakeServer.getUrl());
+    public void shouldCreateAUserWithNotificationReceived() throws Exception {
+        CreateResponse response = callCreateNotificationWithUrlParam(fakeServer.getUrl());
 
-        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
-
-        CreateResponse createResponse = response.getBody();
-        assertThat(createResponse.isSuccess(), equalTo(true));
-        assertThat(createResponse.getAccountIdentifier(), not(isEmptyOrNullString()));
+        assertThat(response.isSuccess(), equalTo(true));
+        assertThat(response.getAccountIdentifier(), not(isEmptyOrNullString()));
     }
 
-    private ResponseEntity<CreateResponse> callCreateNotificationWithUrlParam(String urlParam) {
-        return securedGet("/subscription/create?url={url}", CreateResponse.class, urlParam);
+    private CreateResponse callCreateNotificationWithUrlParam(String urlParam) throws Exception {
+        return securedGet(encodeParamAndCreateUrl("/subscription/create?url=", urlParam), CreateResponse.class);
     }
 
     @After

@@ -5,17 +5,19 @@ import oauth.signpost.http.HttpRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Collections.list;
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 
 public class HttpServletRequestAdapter implements HttpRequest {
 
     private final HttpServletRequest request;
+    private final Map<String, String> additonnalHeaders = new HashMap<>();
 
-    public HttpServletRequestAdapter(HttpServletRequest request) {
+    HttpServletRequestAdapter(HttpServletRequest request) {
         this.request = request;
     }
 
@@ -42,16 +44,17 @@ public class HttpServletRequestAdapter implements HttpRequest {
 
     @Override
     public void setHeader(String name, String value) {
+        additonnalHeaders.put(name, value);
     }
 
     @Override
     public String getHeader(String name) {
-        return request.getHeader(name);
+        return ofNullable(additonnalHeaders.get(name)).orElseGet(() -> request.getHeader(name));
     }
 
     @Override
     public Map<String, String> getAllHeaders() {
-        return Collections.list(request.getHeaderNames()).stream()
+        return list(request.getHeaderNames()).stream()
                 .map(name -> new HashMap.SimpleEntry<>(name, request.getHeader(name)))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
     }

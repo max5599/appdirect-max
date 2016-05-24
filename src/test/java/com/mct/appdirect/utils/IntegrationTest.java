@@ -5,15 +5,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import java.net.URLEncoder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -27,19 +24,19 @@ public abstract class IntegrationTest {
             "oauth_consumer_key=\"Dummy\"," +
             "oauth_signature_method=\"HMAC\"," +
             "oauth_version=\"1.0\"," +
-            "oauth_signature=\"+27RjlWH0Nveix/6ta/x1T7WBY8=\"";
+            "oauth_signature=\"%s\"";
 
     @Value("${local.server.port}")
     private int port;
 
     private final RestTemplate template = new TestRestTemplate();
 
-    protected <T> ResponseEntity<T> securedGet(String path, Class<T> responseType, Object... params) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(AUTHORIZATION, OAUTH);
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+    protected <T> T securedGet(String url, Class<T> responseType) throws Exception {
+        return HttpClient.get(url, responseType);
+    }
 
-        return template.exchange(urlForPath(path), HttpMethod.GET, entity, responseType, params);
+    protected String encodeParamAndCreateUrl(String path, String urlParam) throws Exception {
+        return urlForPath(path) + URLEncoder.encode(urlParam, "UTF-8");
     }
 
     protected <T> ResponseEntity<T> unsecuredGet(String path, Class<T> responseType, Object... params) {

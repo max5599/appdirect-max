@@ -52,6 +52,15 @@ public class HttpServletRequestAdapterTest {
         assertThat(httpRequest.unwrap(), equalTo(mockHttpRequest));
     }
 
+    @Test
+    public void shouldAdaptSetHeader() throws Exception {
+        String newHeader = "newHeader";
+        String newHeaderValue = "newHeaderValue";
+        httpRequest.setHeader(newHeader, newHeaderValue);
+
+        assertThat(httpRequest.getHeader(newHeader), equalTo(newHeaderValue));
+    }
+
     private MockHttpServletRequest createMockRequest() {
         MockHttpServletRequest request = new MockHttpServletRequest("GET", "/api/billing/v1/orders");
         request.setServerPort(654);
