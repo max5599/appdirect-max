@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import static java.util.Optional.ofNullable;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 class OAuthFilter extends OncePerRequestFilter {
 
@@ -25,13 +26,18 @@ class OAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authorization = ofNullable(request.getHeader(AUTHORIZATION))
-                .orElseThrow(() -> new AccessDeniedException("No authorization header"));
+        try {
+            String authorization = ofNullable(request.getHeader(AUTHORIZATION))
+                    .orElseThrow(() -> new AccessDeniedException("No authorization header"));
 
-        if(authorizationIsInvalid(request, authorization))
-            throw new AccessDeniedException("Oauth signature is invalid");
+            if(authorizationIsInvalid(request, authorization))
+                throw new AccessDeniedException("Oauth signature is invalid");
 
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
+        } catch(AccessDeniedException e) {
+            response.sendError(UNAUTHORIZED.value());
+            throw e;
+        }
     }
 
     private boolean authorizationIsInvalid(HttpServletRequest request, String authorization) {
@@ -41,7 +47,7 @@ class OAuthFilter extends OncePerRequestFilter {
 
             return !authorization.equals(httpRequest.getHeader(AUTHORIZATION));
         } catch (Exception e) {
-            return true;
+            throw new AccessDeniedException("Impossible to sign the request", e);
         }
     }
 }
