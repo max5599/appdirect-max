@@ -26,7 +26,7 @@ public class OAuthFieldsParserImplTest {
 
     @Test
     public void shouldReturnOAuthFieldsIfAllFieldsArePresents() throws Exception {
-        String oauthWithOneFieldMissing = "OAuth realm=\"\"," +
+        String completeOAuth = "OAuth realm=\"\"," +
                 "oauth_nonce=\"72250409\"," +
                 "oauth_timestamp=\"1294966759\"," +
                 "oauth_consumer_key=\"Dummy\"," +
@@ -34,7 +34,7 @@ public class OAuthFieldsParserImplTest {
                 "oauth_version=\"1.0\"," +
                 "oauth_signature=\"IBlWhOm3PuDwaSdxE/Qu4RKPtVE=\"";
 
-        assertThat(oAuthFieldsParser.parse(oauthWithOneFieldMissing), equalTo(of(new OAuthFields("Dummy"))));
+        assertThat(oAuthFieldsParser.parse(completeOAuth), equalTo(of(new OAuthFields("Dummy"))));
     }
 
 
