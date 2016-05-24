@@ -21,6 +21,14 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @org.springframework.boot.test.IntegrationTest({"server.port=0"})
 public abstract class IntegrationTest {
 
+    private static final String OAUTH = "OAuth realm=\"\"," +
+            "oauth_nonce=\"72250409\"," +
+            "oauth_timestamp=\"1294966759\"," +
+            "oauth_consumer_key=\"Dummy\"," +
+            "oauth_signature_method=\"HMAC\"," +
+            "oauth_version=\"1.0\"," +
+            "oauth_signature=\"IBlWhOm3PuDwaSdxE/Qu4RKPtVE=\"";
+
     @Value("${local.server.port}")
     private int port;
 
@@ -28,7 +36,7 @@ public abstract class IntegrationTest {
 
     protected <T> ResponseEntity<T> securedGet(String path, Class<T> responseType, Object... params) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add(AUTHORIZATION, "oauth_consumer_key=Dummy");
+        headers.add(AUTHORIZATION, OAUTH);
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
         return template.exchange(urlForPath(path), HttpMethod.GET, entity, responseType, params);

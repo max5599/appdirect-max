@@ -1,5 +1,6 @@
 package com.mct.appdirect.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,8 +15,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${app.security.consumerKey}")
     private String consumerKey;
 
+    @Autowired
+    private OAuthFieldsParser oAuthFieldsParser;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/subscription/**").addFilterBefore(new OAuthFilter(consumerKey), BasicAuthenticationFilter.class);
+        http.antMatcher("/subscription/**").addFilterBefore(new OAuthFilter(oAuthFieldsParser, consumerKey), BasicAuthenticationFilter.class);
     }
 }

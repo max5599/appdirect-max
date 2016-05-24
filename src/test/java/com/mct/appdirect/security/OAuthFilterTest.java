@@ -10,6 +10,8 @@ import org.springframework.security.access.AccessDeniedException;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletResponse;
 
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -23,10 +25,9 @@ public class OAuthFilterTest {
     private final HttpServletResponse response = new MockHttpServletResponse();
     private final FilterChain filterChain = mock(FilterChain.class);
 
-    private final OAuthFilter oAuthFilter = new OAuthFilter("Dummy");
-
     @Test
-    public void shouldChainFilterIfRequestIsOk() throws Exception {
+    public void shouldChainFilterIfRequestAuthorisationIsOk() throws Exception {
+        OAuthFilter oAuthFilter = new OAuthFilter(h -> of(new OAuthFields("Dummy")), "Dummy");
         request.addHeader(AUTHORIZATION, "oauth_consumer_key=Dummy");
 
         oAuthFilter.doFilterInternal(request, response, filterChain);
@@ -36,6 +37,8 @@ public class OAuthFilterTest {
 
     @Test
     public void shouldThrowAnAccessDeniedExceptionIfAuthorizationHeaderIsAbsent() throws Exception {
+        OAuthFilter oAuthFilter = new OAuthFilter(h -> of(new OAuthFields("Dummy")), "Dummy");
+
         thrown.expect(AccessDeniedException.class);
         thrown.expectMessage("No authorization header");
 
@@ -43,21 +46,23 @@ public class OAuthFilterTest {
     }
 
     @Test
-    public void shouldThrowAnAccessDeniedExceptionIfConsumerKeyIsAbsent() throws Exception {
-        thrown.expect(AccessDeniedException.class);
-        thrown.expectMessage("Oauth consumer key is invalid");
-
+    public void shouldThrowAnAccessDeniedExceptionIfParserReturnsEmpty() throws Exception {
+        OAuthFilter oAuthFilter = new OAuthFilter(h -> empty(), "Dummy");
         request.addHeader(AUTHORIZATION, "a_key=Dummy");
+
+        thrown.expect(AccessDeniedException.class);
+        thrown.expectMessage("Oauth fields are invalids");
 
         oAuthFilter.doFilterInternal(request, response, filterChain);
     }
 
     @Test
     public void shouldThrowAnAccessDeniedExceptionIfConsumerKeyIsNotTheGoodOne() throws Exception {
+        OAuthFilter oAuthFilter = new OAuthFilter(h -> of(new OAuthFields("NotAGoodOne")), "Dummy");
+        request.addHeader(AUTHORIZATION, "oauth_consumer_key=Dummy");
+
         thrown.expect(AccessDeniedException.class);
         thrown.expectMessage("Oauth consumer key is invalid");
-
-        request.addHeader(AUTHORIZATION, "oauth_consumer_key=NotAGoodOne");
 
         oAuthFilter.doFilterInternal(request, response, filterChain);
     }

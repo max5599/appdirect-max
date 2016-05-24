@@ -1,24 +1,36 @@
 package com.mct.appdirect.security;
 
-import java.util.Map;
-
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toMap;
+import java.util.Objects;
 
 class OAuthFields {
 
-    private static final String CONSUMER_KEY = "oauth_consumer_key";
+    private final String consumerKey;
 
-    private final Map<String, String> fields;
-
-    OAuthFields(String authorizationHeader) {
-        fields = stream(authorizationHeader.split(","))
-                .map(s -> s.split("="))
-                .filter(s -> s.length == 2)
-                .collect(toMap(s -> s[0], s -> s[1]));
+    OAuthFields(String consumerKey) {
+        this.consumerKey = consumerKey;
     }
 
-    String getConsumerKey() {
-        return fields.get(CONSUMER_KEY);
+    public String getConsumerKey() {
+        return consumerKey;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OAuthFields)) return false;
+        OAuthFields that = (OAuthFields) o;
+        return Objects.equals(consumerKey, that.consumerKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(consumerKey);
+    }
+
+    @Override
+    public String toString() {
+        return "OAuthFields{" +
+                "consumerKey='" + consumerKey + '\'' +
+                '}';
     }
 }
