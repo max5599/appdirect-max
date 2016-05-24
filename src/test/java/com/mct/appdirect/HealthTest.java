@@ -12,7 +12,7 @@ public class HealthTest extends IntegrationTest {
 
     @Test
     public void shouldReturnOk() {
-        ResponseEntity<String> response = template.getForEntity("http://localhost:" + port + "/health", String.class);
+        ResponseEntity<String> response = template.getForEntity(urlForPath("/health"), String.class);
 
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }

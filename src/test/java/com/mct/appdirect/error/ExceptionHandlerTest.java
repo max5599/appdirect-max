@@ -15,7 +15,7 @@ public class ExceptionHandlerTest extends IntegrationTest {
 
     @Test
     public void shouldMapInternalErrorToAnErrorResponseWithStatusOk() {
-        ResponseEntity<ErrorResponse> response = template.getForEntity(getBaseUrl() + "/exception/internal-error", ErrorResponse.class);
+        ResponseEntity<ErrorResponse> response = template.getForEntity(urlForPath("/exception/internal-error"), ErrorResponse.class);
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo(internalErrorResponse()));
@@ -23,7 +23,7 @@ public class ExceptionHandlerTest extends IntegrationTest {
 
     @Test
     public void shouldMapInvalidEventToAnErrorResponseWithStatusOk() {
-        ResponseEntity<ErrorResponse> response = template.getForEntity(getBaseUrl() + "/exception/invalid-event", ErrorResponse.class);
+        ResponseEntity<ErrorResponse> response = template.getForEntity(urlForPath("/exception/invalid-event"), ErrorResponse.class);
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo(invalidResponse()));
@@ -31,7 +31,7 @@ public class ExceptionHandlerTest extends IntegrationTest {
 
     @Test
     public void shouldMapTransportErrorToAnErrorResponseWithStatusOk() {
-        ResponseEntity<ErrorResponse> response = template.getForEntity(getBaseUrl() + "/exception/transport-error", ErrorResponse.class);
+        ResponseEntity<ErrorResponse> response = template.getForEntity(urlForPath("/exception/transport-error"), ErrorResponse.class);
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo(transportErrorResponse()));
@@ -39,7 +39,7 @@ public class ExceptionHandlerTest extends IntegrationTest {
 
     @Test
     public void shouldMapIllegalArgumentToABadRequest() {
-        ResponseEntity<Void> response = template.getForEntity(getBaseUrl() + "/exception/illegal-argument", Void.class);
+        ResponseEntity<Void> response = template.getForEntity(urlForPath("/exception/illegal-argument"), Void.class);
 
         assertThat(response.getStatusCode(), equalTo(BAD_REQUEST));
     }

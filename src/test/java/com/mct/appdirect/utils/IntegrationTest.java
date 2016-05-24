@@ -16,11 +16,11 @@ import org.springframework.web.client.RestTemplate;
 public abstract class IntegrationTest {
 
     @Value("${local.server.port}")
-    protected int port;
+    private int port;
 
     protected final RestTemplate template = new TestRestTemplate();
 
-    protected String getBaseUrl() {
-        return "http://localhost:" + port;
+    protected String urlForPath(String path) {
+        return "http://localhost:" + port + path;
     }
 }
