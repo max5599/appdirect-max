@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -31,7 +32,7 @@ class OAuthFilter extends OncePerRequestFilter {
                     .orElseThrow(() -> new AccessDeniedException("No authorization header"));
 
             if(authorizationIsInvalid(request, authorization))
-                throw new AccessDeniedException("Oauth signature is invalid");
+                throw new AccessDeniedException(format("Oauth signature %s is invalid", authorization));
 
             filterChain.doFilter(request, response);
         } catch(AccessDeniedException e) {
