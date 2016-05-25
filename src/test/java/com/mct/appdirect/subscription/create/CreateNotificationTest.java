@@ -30,7 +30,7 @@ public class CreateNotificationTest extends IntegrationTest {
     }
 
     private CreateResponse callCreateNotificationWithUrlParam(String urlParam) throws Exception {
-        return securedGet(encodeParamAndCreateUrl("/subscription/create?url=", urlParam), CreateResponse.class);
+        return securedGet("/subscription/create?url={url}", CreateResponse.class, urlParam);
     }
 
     @After

@@ -30,7 +30,7 @@ public class CancelNotificationTest extends IntegrationTest {
     }
 
     private BaseResponse callCancelNotificationWithUrlParam(String urlParam) throws Exception {
-        return securedGet(encodeParamAndCreateUrl("/subscription/cancel?url=", urlParam), BaseResponse.class);
+        return securedGet("/subscription/cancel?url={url}", BaseResponse.class, urlParam);
     }
 
     @After
