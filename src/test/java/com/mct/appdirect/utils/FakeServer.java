@@ -8,7 +8,7 @@ public class FakeServer {
 
     private final Server server;
 
-    public FakeServer(Server server) {
+    FakeServer(Server server) {
         this.server = server;
     }
 

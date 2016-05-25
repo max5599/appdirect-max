@@ -7,10 +7,12 @@ import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.http.HttpStatus.OK;
 
 @Sql({"classpath:db/user/insertUser1.sql"})
 public class CancelNotificationTest extends IntegrationTest {
@@ -19,17 +21,18 @@ public class CancelNotificationTest extends IntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        fakeServer = FakeServerUtils.startFakeServerWithJsonResponse(this, "cancelEvent.json");
+        fakeServer = FakeServerUtils.startFakeOAuthServerWithJsonResponse(this, "cancelEvent.json");
     }
 
     @Test
     public void shouldCreateAUserWithNotificationReceived() throws Exception {
-        BaseResponse response = callCancelNotificationWithUrlParam(fakeServer.getUrl());
+        ResponseEntity<BaseResponse> response = callCancelNotificationWithUrlParam(fakeServer.getUrl());
 
-        assertThat(response.isSuccess(), equalTo(true));
+        assertThat(response.getStatusCode(), equalTo(OK));
+        assertThat(response.getBody().isSuccess(), equalTo(true));
     }
 
-    private BaseResponse callCancelNotificationWithUrlParam(String urlParam) throws Exception {
+    private ResponseEntity<BaseResponse> callCancelNotificationWithUrlParam(String urlParam) throws Exception {
         return securedGet("/subscription/cancel?url={url}", BaseResponse.class, urlParam);
     }
 

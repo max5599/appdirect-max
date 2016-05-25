@@ -3,26 +3,21 @@ package com.mct.appdirect.subscription;
 import com.mct.appdirect.error.InvalidEventException;
 import com.mct.appdirect.error.TransportException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.oauth.consumer.client.OAuthRestTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
 
 import static java.lang.String.format;
 
 @Service
 public class NotificationEventRetrieverImpl implements NotificationEventRetriever {
 
-    private final RestTemplate restTemplate;
+    private final OAuthRestTemplate restTemplate;
 
     @Autowired
-    public NotificationEventRetrieverImpl(@Value("${app.server.timeout}") int timeout) {
-        this.restTemplate = new RestTemplate();
-        SimpleClientHttpRequestFactory factory = (SimpleClientHttpRequestFactory) restTemplate.getRequestFactory();
-        factory.setReadTimeout(timeout);
-        factory.setConnectTimeout(timeout);
+    public NotificationEventRetrieverImpl(OAuthRestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Override

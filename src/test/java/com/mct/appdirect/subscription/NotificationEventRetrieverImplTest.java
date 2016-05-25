@@ -1,5 +1,6 @@
 package com.mct.appdirect.subscription;
 
+import com.mct.appdirect.Application;
 import com.mct.appdirect.error.InvalidEventException;
 import com.mct.appdirect.error.TransportException;
 import com.mct.appdirect.utils.FakeServer;
@@ -7,17 +8,24 @@ import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static com.mct.appdirect.subscription.EventBuilder.anEvent;
+import static com.mct.appdirect.utils.FakeServerUtils.startFakeOAuthServerWithJsonResponse;
 import static com.mct.appdirect.utils.FakeServerUtils.startFakeServerThatNeverRespond;
-import static com.mct.appdirect.utils.FakeServerUtils.startFakeServerWithJsonResponse;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
 public class NotificationEventRetrieverImplTest {
 
-    private final NotificationEventRetrieverImpl eventRetriever = new NotificationEventRetrieverImpl(1000);
+    @Autowired
+    private NotificationEventRetrieverImpl eventRetriever;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -25,8 +33,8 @@ public class NotificationEventRetrieverImplTest {
     private FakeServer fakeServer;
 
     @Test
-    public void shouldCallUrlAndReturnedParsedBody() throws Exception {
-        fakeServer = startFakeServerWithJsonResponse(this, "validEvent.json");
+    public void shouldCallUrlWithOAuthAuthorizationAndReturnedParsedBody() throws Exception {
+        fakeServer = startFakeOAuthServerWithJsonResponse(this, "validEvent.json");
 
         String eventUrl = fakeServer.getUrl();
         Event event = eventRetriever.retrieveEvent(eventUrl);
@@ -51,7 +59,7 @@ public class NotificationEventRetrieverImplTest {
     }
 
     private void assertThatAnInvalidEventExceptionIsThrownForResponse(String jsonLocation) throws Exception {
-        fakeServer = startFakeServerWithJsonResponse(this, jsonLocation);
+        fakeServer = startFakeOAuthServerWithJsonResponse(this, jsonLocation);
         String eventUrl = fakeServer.getUrl();
         String message = format("Invalid event received for url %s", eventUrl);
 

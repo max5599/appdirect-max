@@ -6,10 +6,12 @@ import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.http.HttpStatus.OK;
 
 @Sql("classpath:db/user/cleanTables.sql")
 public class CreateNotificationTest extends IntegrationTest {
@@ -18,18 +20,19 @@ public class CreateNotificationTest extends IntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        fakeServer = FakeServerUtils.startFakeServerWithJsonResponse(this, "createEvent.json");
+        fakeServer = FakeServerUtils.startFakeOAuthServerWithJsonResponse(this, "createEvent.json");
     }
 
     @Test
     public void shouldCreateAUserWithNotificationReceived() throws Exception {
-        CreateResponse response = callCreateNotificationWithUrlParam(fakeServer.getUrl());
+        ResponseEntity<CreateResponse> response = callCreateNotificationWithUrlParam(fakeServer.getUrl());
 
-        assertThat(response.isSuccess(), equalTo(true));
-        assertThat(response.getAccountIdentifier(), not(isEmptyOrNullString()));
+        assertThat(response.getStatusCode(), equalTo(OK));
+        assertThat(response.getBody().isSuccess(), equalTo(true));
+        assertThat(response.getBody().getAccountIdentifier(), not(isEmptyOrNullString()));
     }
 
-    private CreateResponse callCreateNotificationWithUrlParam(String urlParam) throws Exception {
+    private ResponseEntity<CreateResponse> callCreateNotificationWithUrlParam(String urlParam) throws Exception {
         return securedGet("/subscription/create?url={url}", CreateResponse.class, urlParam);
     }
 
