@@ -32,7 +32,7 @@ class OAuthFilter extends OncePerRequestFilter {
                     .orElseThrow(() -> new AccessDeniedException("No authorization header"));
 
             if(authorizationIsInvalid(request, authorization))
-                throw new AccessDeniedException(format("Oauth signature %s is invalid", authorization));
+                throw new AccessDeniedException(format("Oauth signature '%s' is invalid", authorization));
 
             filterChain.doFilter(request, response);
         } catch(AccessDeniedException e) {

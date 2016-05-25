@@ -46,7 +46,7 @@ public class OAuthFilterTest {
         aRequest.addHeader(AUTHORIZATION, "A bad author");
 
         thrown.expect(AccessDeniedException.class);
-        thrown.expectMessage("Oauth signature is invalid");
+        thrown.expectMessage("Oauth signature 'A bad author' is invalid");
 
         oAuthFilter.doFilterInternal(aRequest, response, filterChain);
     }
