@@ -32,7 +32,6 @@ class OAuthFilter extends OncePerRequestFilter {
                     .orElseThrow(() -> new AccessDeniedException("No authorization header"));
 
             if(authorizationIsInvalid(request, authorization)) {
-                System.out.println("MCT :" + authorization);
                 throw new AccessDeniedException(format("Oauth signature '%s' is invalid", authorization));
             }
 
