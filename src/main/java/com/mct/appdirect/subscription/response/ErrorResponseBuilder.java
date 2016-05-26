@@ -1,4 +1,4 @@
-package com.mct.appdirect.response;
+package com.mct.appdirect.subscription.response;
 
 public class ErrorResponseBuilder {
 

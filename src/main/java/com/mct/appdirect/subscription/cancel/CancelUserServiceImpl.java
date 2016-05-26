@@ -1,18 +1,18 @@
 package com.mct.appdirect.subscription.cancel;
 
-import com.mct.appdirect.response.BaseResponse;
-import com.mct.appdirect.response.BaseResponseBuilder;
-import com.mct.appdirect.response.ErrorResponseBuilder;
 import com.mct.appdirect.subscription.Account;
 import com.mct.appdirect.subscription.Event;
 import com.mct.appdirect.subscription.NotificationEventRetriever;
+import com.mct.appdirect.subscription.response.BaseResponse;
+import com.mct.appdirect.subscription.response.BaseResponseBuilder;
+import com.mct.appdirect.subscription.response.ErrorResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.ACCOUNT_NOT_FOUND;
-import static com.mct.appdirect.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.ACCOUNT_NOT_FOUND;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
 
 @Service
 class CancelUserServiceImpl implements CancelUserService {

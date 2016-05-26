@@ -1,14 +1,15 @@
 package com.mct.appdirect.subscription.create;
 
-import com.mct.appdirect.response.BaseResponse;
-import com.mct.appdirect.response.ErrorResponse;
 import com.mct.appdirect.subscription.EventBuilder;
+import com.mct.appdirect.subscription.response.BaseResponse;
+import com.mct.appdirect.subscription.response.CreateResponse;
+import com.mct.appdirect.subscription.response.ErrorResponse;
 import org.junit.Test;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSucceedWithId;
+import static com.mct.appdirect.subscription.response.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 

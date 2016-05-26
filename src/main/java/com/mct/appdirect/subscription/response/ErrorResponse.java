@@ -1,4 +1,4 @@
-package com.mct.appdirect.response;
+package com.mct.appdirect.subscription.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ public class ErrorResponse extends BaseResponse {
     private String errorCode;
 
     @JsonCreator
-    public ErrorResponse(@JsonProperty(value = "success", required = true) boolean success) {
+    ErrorResponse(@JsonProperty(value = "success", required = true) boolean success) {
         super(success);
     }
 
@@ -18,7 +18,7 @@ public class ErrorResponse extends BaseResponse {
         return errorCode;
     }
 
-    public void setErrorCode(String errorCode) {
+    void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 

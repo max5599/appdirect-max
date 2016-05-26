@@ -8,7 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.USER_NOT_FOUND;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.USER_NOT_FOUND;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.hamcrest.Matchers.equalTo;

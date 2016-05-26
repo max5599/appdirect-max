@@ -1,6 +1,6 @@
 package com.mct.appdirect.subscription.cancel;
 
-import com.mct.appdirect.response.BaseResponse;
+import com.mct.appdirect.subscription.response.BaseResponse;
 import com.mct.appdirect.utils.FakeServer;
 import com.mct.appdirect.utils.FakeServerUtils;
 import com.mct.appdirect.utils.IntegrationTest;

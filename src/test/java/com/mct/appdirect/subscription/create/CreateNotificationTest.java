@@ -1,5 +1,6 @@
 package com.mct.appdirect.subscription.create;
 
+import com.mct.appdirect.subscription.response.CreateResponse;
 import com.mct.appdirect.utils.FakeServer;
 import com.mct.appdirect.utils.FakeServerUtils;
 import com.mct.appdirect.utils.IntegrationTest;

@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static com.mct.appdirect.subscription.create.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
+import static com.mct.appdirect.subscription.response.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static com.mct.appdirect.utils.AssertNestedServetException.assertPerformRequestBuilderThrowRootCause;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

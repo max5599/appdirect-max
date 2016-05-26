@@ -1,6 +1,6 @@
 package com.mct.appdirect.subscription.cancel;
 
-import com.mct.appdirect.response.BaseResponse;
+import com.mct.appdirect.subscription.response.BaseResponse;
 import com.mct.appdirect.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

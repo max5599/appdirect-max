@@ -1,12 +1,11 @@
-package com.mct.appdirect.subscription.create;
+package com.mct.appdirect.subscription.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mct.appdirect.response.BaseResponse;
 
 import java.util.Objects;
 
-class CreateResponse extends BaseResponse {
+public class CreateResponse extends BaseResponse {
 
     private final String accountIdentifier;
 

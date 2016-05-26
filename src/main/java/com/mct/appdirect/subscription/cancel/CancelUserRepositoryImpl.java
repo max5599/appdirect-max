@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.USER_NOT_FOUND;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.USER_NOT_FOUND;
 import static com.mct.appdirect.utils.StringUtils.isNumeric;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;

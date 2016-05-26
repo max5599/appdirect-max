@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.USER_ALREADY_EXISTS;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSucceedWithId;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.USER_ALREADY_EXISTS;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 @Repository

@@ -1,7 +1,7 @@
 package com.mct.appdirect.error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mct.appdirect.response.ErrorResponse;
+import com.mct.appdirect.subscription.response.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.*;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;

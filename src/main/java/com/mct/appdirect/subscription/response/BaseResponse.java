@@ -1,4 +1,4 @@
-package com.mct.appdirect.response;
+package com.mct.appdirect.subscription.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ public class BaseResponse {
     private final boolean success;
 
     @JsonCreator
-    public BaseResponse(@JsonProperty(value = "success", required = true) boolean success) {
+    BaseResponse(@JsonProperty(value = "success", required = true) boolean success) {
         this.success = success;
     }
 

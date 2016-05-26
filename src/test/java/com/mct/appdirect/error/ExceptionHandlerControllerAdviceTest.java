@@ -1,11 +1,11 @@
 package com.mct.appdirect.error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mct.appdirect.response.ErrorResponse;
+import com.mct.appdirect.subscription.response.ErrorResponse;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import static com.mct.appdirect.response.ErrorResponseBuilder.*;
+import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.mock;
