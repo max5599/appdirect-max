@@ -7,19 +7,17 @@ import java.util.Objects;
 
 public class ErrorResponse extends BaseResponse {
 
-    private String errorCode;
+    private final String errorCode;
 
     @JsonCreator
-    ErrorResponse(@JsonProperty(value = "success", required = true) boolean success) {
+    ErrorResponse(@JsonProperty(value = "success", required = true) boolean success,
+                  @JsonProperty(value = "errorCode", required = true) String errorCode) {
         super(success);
+        this.errorCode = errorCode;
     }
 
     public String getErrorCode() {
         return errorCode;
-    }
-
-    void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
     }
 
     @Override
