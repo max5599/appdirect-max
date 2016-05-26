@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription;
+package com.mct.appdirect.subscription.event;
 
 import com.mct.appdirect.Application;
 import com.mct.appdirect.error.InvalidEventException;
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static com.mct.appdirect.subscription.EventBuilder.anEvent;
+import static com.mct.appdirect.subscription.event.EventBuilder.anEvent;
 import static com.mct.appdirect.utils.FakeServerUtils.startFakeOAuthServerWithJsonResponse;
 import static com.mct.appdirect.utils.FakeServerUtils.startFakeServerThatNeverRespond;
 import static java.lang.String.format;

@@ -1,7 +1,7 @@
 package com.mct.appdirect.subscription.create;
 
-import com.mct.appdirect.subscription.Event;
-import com.mct.appdirect.subscription.NotificationEventRetriever;
+import com.mct.appdirect.subscription.event.Event;
+import com.mct.appdirect.subscription.event.NotificationEventRetriever;
 import com.mct.appdirect.subscription.response.BaseResponse;
 import com.mct.appdirect.subscription.response.CreateResponseBuilder;
 import com.mct.appdirect.subscription.response.ErrorResponseBuilder;

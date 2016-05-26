@@ -1,10 +1,10 @@
 package com.mct.appdirect.subscription.cancel;
 
-import com.mct.appdirect.subscription.NotificationEventRetriever;
+import com.mct.appdirect.subscription.event.NotificationEventRetriever;
 import com.mct.appdirect.subscription.response.BaseResponse;
 import org.junit.Test;
 
-import static com.mct.appdirect.subscription.EventBuilder.anEvent;
+import static com.mct.appdirect.subscription.event.EventBuilder.anEvent;
 import static com.mct.appdirect.subscription.response.BaseResponseBuilder.aSuccessfulResponse;
 import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.ACCOUNT_NOT_FOUND;
 import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;

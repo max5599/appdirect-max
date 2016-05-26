@@ -1,6 +1,6 @@
 package com.mct.appdirect.subscription.create;
 
-import com.mct.appdirect.subscription.Event;
+import com.mct.appdirect.subscription.event.Event;
 
 @FunctionalInterface
 interface CreateUserRepository {

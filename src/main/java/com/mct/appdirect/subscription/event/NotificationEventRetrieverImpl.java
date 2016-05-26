@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription;
+package com.mct.appdirect.subscription.event;
 
 import com.mct.appdirect.error.InvalidEventException;
 import com.mct.appdirect.error.TransportException;

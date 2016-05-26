@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription;
+package com.mct.appdirect.subscription.event;
 
 import java.util.Objects;
 import java.util.Optional;

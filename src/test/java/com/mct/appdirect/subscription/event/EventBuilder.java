@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription;
+package com.mct.appdirect.subscription.event;
 
 public class EventBuilder {
 

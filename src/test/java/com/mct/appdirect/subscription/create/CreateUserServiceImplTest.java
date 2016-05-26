@@ -1,6 +1,5 @@
 package com.mct.appdirect.subscription.create;
 
-import com.mct.appdirect.subscription.EventBuilder;
 import com.mct.appdirect.subscription.response.BaseResponse;
 import com.mct.appdirect.subscription.response.CreateResponse;
 import com.mct.appdirect.subscription.response.ErrorResponse;
@@ -8,6 +7,7 @@ import org.junit.Test;
 
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationFailedWithError;
 import static com.mct.appdirect.subscription.create.UserCreationResult.userCreationSucceedWithId;
+import static com.mct.appdirect.subscription.event.EventBuilder.anEvent;
 import static com.mct.appdirect.subscription.response.CreateResponseBuilder.aSuccessfulResponseWithAccountIdentifier;
 import static com.mct.appdirect.subscription.response.ErrorResponseBuilder.aFailureResponseWithErrorCode;
 import static org.hamcrest.Matchers.equalTo;
@@ -36,6 +36,6 @@ public class CreateUserServiceImplTest {
     }
 
     private CreateUserServiceImpl createUserService(CreateUserRepository createUserRepository) {
-        return new CreateUserServiceImpl(eventUrl -> EventBuilder.anEvent().build(), createUserRepository);
+        return new CreateUserServiceImpl(eventUrl -> anEvent().build(), createUserRepository);
     }
 }

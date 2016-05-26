@@ -1,6 +1,6 @@
 package com.mct.appdirect.subscription.create;
 
-import com.mct.appdirect.subscription.Event;
+import com.mct.appdirect.subscription.event.Event;
 import com.mct.appdirect.subscription.user.FindUserRepository;
 import com.mct.appdirect.subscription.user.User;
 import com.mct.appdirect.utils.RepositoryTest;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
-import static com.mct.appdirect.subscription.EventBuilder.anEvent;
+import static com.mct.appdirect.subscription.event.EventBuilder.anEvent;
 import static com.mct.appdirect.subscription.user.UserBuilder.aUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

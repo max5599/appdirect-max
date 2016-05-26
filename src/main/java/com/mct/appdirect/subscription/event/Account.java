@@ -1,4 +1,4 @@
-package com.mct.appdirect.subscription;
+package com.mct.appdirect.subscription.event;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
