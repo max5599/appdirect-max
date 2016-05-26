@@ -12,7 +12,7 @@ import static java.util.Collections.list;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 
-public class HttpServletRequestAdapter implements HttpRequest {
+class HttpServletRequestAdapter implements HttpRequest {
 
     private final HttpServletRequest request;
     private final Map<String, String> additonnalHeaders = new HashMap<>();
