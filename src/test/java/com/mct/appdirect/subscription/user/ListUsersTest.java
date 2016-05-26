@@ -13,14 +13,14 @@ import static org.springframework.http.HttpStatus.OK;
 public class ListUsersTest extends IntegrationTest {
 
     @Test
-    public void shouldListUsers() throws Exception {
+    public void shouldListUsers() {
         ResponseEntity<String> response = callUsers();
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo("User 1 with email max@ence.com is Maxence Cramet and he or she is active"));
     }
 
-    private ResponseEntity<String> callUsers() throws Exception {
+    private ResponseEntity<String> callUsers() {
         return unsecuredGet("/", String.class);
     }
 }

@@ -26,7 +26,7 @@ public abstract class IntegrationTest {
 
     private final RestTemplate template = new TestRestTemplate();
 
-    protected <T> ResponseEntity<T> securedGet(String path, Class<T> responseType, Object... params) throws Exception {
+    protected <T> ResponseEntity<T> securedGet(String path, Class<T> responseType, Object... params) {
         return oAuthRestTemplate.getForEntity(urlForPath(path), responseType, params);
     }
 

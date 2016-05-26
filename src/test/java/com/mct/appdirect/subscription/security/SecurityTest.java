@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class SecurityTest extends IntegrationTest {
 
     @Test
-    public void shouldReturnUnauthorizedIfNoSecurityIsProvidedInTheRequest() throws Exception {
+    public void shouldReturnUnauthorizedIfNoSecurityIsProvidedInTheRequest() {
         ResponseEntity<String> response = unsecuredGet("/subscription/create", String.class);
 
         assertThat(response.getStatusCode(), equalTo(UNAUTHORIZED));

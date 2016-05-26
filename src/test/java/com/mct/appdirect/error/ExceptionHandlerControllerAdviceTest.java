@@ -49,7 +49,7 @@ public class ExceptionHandlerControllerAdviceTest {
     }
 
     @Test
-    public void shouldLogErrorForIllegalArgument() throws Exception {
+    public void shouldLogErrorForIllegalArgument() {
         IllegalArgumentException ex = new IllegalArgumentException("Illegal Argument");
 
         exceptionHandler.handleIllegalArgumentException(ex);

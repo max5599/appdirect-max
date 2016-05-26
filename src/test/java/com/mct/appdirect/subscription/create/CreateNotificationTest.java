@@ -25,7 +25,7 @@ public class CreateNotificationTest extends IntegrationTest {
     }
 
     @Test
-    public void shouldCreateAUserWithNotificationReceived() throws Exception {
+    public void shouldCreateAUserWithNotificationReceived() {
         ResponseEntity<CreateResponse> response = callCreateNotificationWithUrlParam(fakeServer.getUrl());
 
         assertThat(response.getStatusCode(), equalTo(OK));
@@ -33,7 +33,7 @@ public class CreateNotificationTest extends IntegrationTest {
         assertThat(response.getBody().getAccountIdentifier(), not(isEmptyOrNullString()));
     }
 
-    private ResponseEntity<CreateResponse> callCreateNotificationWithUrlParam(String urlParam) throws Exception {
+    private ResponseEntity<CreateResponse> callCreateNotificationWithUrlParam(String urlParam) {
         return securedGet("/subscription/create?url={url}", CreateResponse.class, urlParam);
     }
 

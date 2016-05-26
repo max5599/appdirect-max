@@ -16,22 +16,22 @@ public class HttpServletRequestAdapterTest {
     private final HttpRequest httpRequest = new HttpServletRequestAdapter(mockHttpRequest);
 
     @Test
-    public void shouldAdaptGetMethod() throws Exception {
+    public void shouldAdaptGetMethod() {
         assertThat(httpRequest.getMethod(), equalTo("GET"));
     }
 
     @Test
-    public void shouldAdaptGetRequestUrl() throws Exception {
+    public void shouldAdaptGetRequestUrl() {
         assertThat(httpRequest.getRequestUrl(), equalTo("http://localhost:654/api/billing/v1/orders"));
     }
 
     @Test
-    public void shouldAdaptGetHeader() throws Exception {
+    public void shouldAdaptGetHeader() {
         assertThat(httpRequest.getHeader("header1"), equalTo("header1Value"));
     }
 
     @Test
-    public void shouldAdaptGetAllHeaders() throws Exception {
+    public void shouldAdaptGetAllHeaders() {
         Map<String, String> allHeaders = httpRequest.getAllHeaders();
         assertThat(allHeaders, hasEntry("header1","header1Value"));
         assertThat(allHeaders, hasEntry("header2","header2Value"));
@@ -43,17 +43,17 @@ public class HttpServletRequestAdapterTest {
     }
 
     @Test
-    public void shouldAdaptGetContentType() throws Exception {
+    public void shouldAdaptGetContentType() {
         assertThat(httpRequest.getContentType(), equalTo("application/json"));
     }
 
     @Test
-    public void shouldUnwrap() throws Exception {
+    public void shouldUnwrap() {
         assertThat(httpRequest.unwrap(), equalTo(mockHttpRequest));
     }
 
     @Test
-    public void shouldAdaptSetHeader() throws Exception {
+    public void shouldAdaptSetHeader() {
         String newHeader = "newHeader";
         String newHeaderValue = "newHeaderValue";
         httpRequest.setHeader(newHeader, newHeaderValue);

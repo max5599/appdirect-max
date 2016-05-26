@@ -28,7 +28,7 @@ public class NotificationEventRetrieverImplTest {
     private NotificationEventRetrieverImpl eventRetriever;
 
     @Rule
-    public ExpectedException exception = ExpectedException.none();
+    public final ExpectedException exception = ExpectedException.none();
 
     private FakeServer fakeServer;
 

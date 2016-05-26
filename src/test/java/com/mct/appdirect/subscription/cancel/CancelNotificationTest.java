@@ -25,14 +25,14 @@ public class CancelNotificationTest extends IntegrationTest {
     }
 
     @Test
-    public void shouldCreateAUserWithNotificationReceived() throws Exception {
+    public void shouldCreateAUserWithNotificationReceived() {
         ResponseEntity<BaseResponse> response = callCancelNotificationWithUrlParam(fakeServer.getUrl());
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody().isSuccess(), equalTo(true));
     }
 
-    private ResponseEntity<BaseResponse> callCancelNotificationWithUrlParam(String urlParam) throws Exception {
+    private ResponseEntity<BaseResponse> callCancelNotificationWithUrlParam(String urlParam) {
         return securedGet("/subscription/cancel?url={url}", BaseResponse.class, urlParam);
     }
 

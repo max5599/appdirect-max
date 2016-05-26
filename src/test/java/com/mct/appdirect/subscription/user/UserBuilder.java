@@ -8,7 +8,7 @@ public class UserBuilder {
     private String lastName;
     private boolean cancelled = false;
 
-    private UserBuilder() {};
+    private UserBuilder() {}
 
     public static UserBuilder aUser() {
      return new UserBuilder();

@@ -1,7 +1,6 @@
 package com.mct.appdirect.utils;
 
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.util.NestedServletException;
 
 import static junit.framework.TestCase.fail;
@@ -16,7 +15,7 @@ public final class AssertNestedServetException {
 
     @FunctionalInterface
     public interface MvcPerform {
-        ResultActions perform(RequestBuilder requestBuilder) throws Exception;
+        void perform(RequestBuilder requestBuilder) throws Exception;
     }
 
     public static void assertPerformRequestBuilderThrowRootCause(MvcPerform mvcPerform, RequestBuilder requestBuilder, Throwable expectedRootCause) throws Exception {

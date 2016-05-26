@@ -15,11 +15,11 @@ import static org.junit.Assert.assertThat;
 
 public class CancelUserServiceImplTest {
 
-    private NotificationEventRetriever eventWithAccountIdentifier = eventUrl -> anEvent().withAccountIdentifier("1").build();
-    private NotificationEventRetriever eventWithoutAccount = eventUrl -> anEvent().build();
+    private final NotificationEventRetriever eventWithAccountIdentifier = eventUrl -> anEvent().withAccountIdentifier("1").build();
+    private final NotificationEventRetriever eventWithoutAccount = eventUrl -> anEvent().build();
 
-    private CancelUserRepository successfulCancellation = event -> empty();
-    private CancelUserRepository cancellationFailedForAccountNotFound = event -> of(ACCOUNT_NOT_FOUND);
+    private final CancelUserRepository successfulCancellation = event -> empty();
+    private final CancelUserRepository cancellationFailedForAccountNotFound = event -> of(ACCOUNT_NOT_FOUND);
 
     @Test
     public void shouldReturnASuccessfulResponseIfEventIsValidAndCancellationSucceed() {

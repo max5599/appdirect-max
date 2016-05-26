@@ -17,7 +17,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class OAuthFilterTest {
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     private final MockHttpServletRequest aRequest = new MockHttpServletRequest("GET", "https://www.appdirect.com/api/billing/v1/orders");
     private final HttpServletResponse response = new MockHttpServletResponse();
