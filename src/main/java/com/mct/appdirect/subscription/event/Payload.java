@@ -1,5 +1,8 @@
 package com.mct.appdirect.subscription.event;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -7,9 +10,10 @@ import static java.util.Optional.ofNullable;
 
 public class Payload {
 
-    private Account account;
+    private final Account account;
 
-    void setAccount(Account account) {
+    @JsonCreator
+    public Payload(@JsonProperty(value = "accountIdentifier") Account account) {
         this.account = account;
     }
 

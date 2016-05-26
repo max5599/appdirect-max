@@ -41,10 +41,11 @@ public class EventBuilder {
 
     public Event build() {
         Creator creator = new Creator(email, firstName, lastName);
-        Payload payload = new Payload();
+        Account account = null;
         if (accountIdentifier != null) {
-            payload.setAccount(new Account(accountIdentifier));
+            account = new Account(accountIdentifier);
         }
+        Payload payload = new Payload(account);
         return new Event(type, creator, payload);
     }
 }
