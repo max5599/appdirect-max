@@ -1,20 +1,26 @@
 package com.mct.appdirect.subscription.create;
 
 import com.mct.appdirect.subscription.Event;
+import com.mct.appdirect.subscription.user.FindUserRepository;
+import com.mct.appdirect.subscription.user.User;
 import com.mct.appdirect.utils.RepositoryTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
 import static com.mct.appdirect.subscription.EventBuilder.anEvent;
+import static com.mct.appdirect.subscription.user.UserBuilder.aUser;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
 @Sql("classpath:db/user/cleanTables.sql")
 public class CreateUserRepositoryImplTest extends RepositoryTest {
 
     @Autowired
-    private CreateUserRepositoryImpl repository;
+    private FindUserRepository findUserRepository;
+
+    @Autowired
+    private CreateUserRepositoryImpl createRepository;
 
     @Test
     public void shouldCreateUserAndReturnItsGeneratedId() {
@@ -23,9 +29,18 @@ public class CreateUserRepositoryImplTest extends RepositoryTest {
                 .withFirstName("Maxence")
                 .withLastName("Cramet")
                 .build();
-        UserCreationResult result = repository.createUser(event);
+        UserCreationResult result = createRepository.createUser(event);
 
-        assertThat(result.map(id -> id, error -> error), not(isEmptyOrNullString()));
+        long generatedId = result.map(Long::valueOf, error -> -1L);
+        assertThat(generatedId, greaterThan(0L));
+
+        User expectedUser = aUser().withId(generatedId)
+                .withEmail("max@ence.com")
+                .withFirstName("Maxence")
+                .withLastName("Cramet")
+                .active()
+                .build();
+        assertThat(findUserRepository.getUsers(), hasItems(expectedUser));
     }
 
     @Test
@@ -33,9 +48,9 @@ public class CreateUserRepositoryImplTest extends RepositoryTest {
         Event firstEvent = anEvent().withEmail("max@ence.com").build();
         Event eventWithDuplicatedEmail = anEvent().withEmail("max@ence.com").build();
 
-        repository.createUser(firstEvent);
-        UserCreationResult result = repository.createUser(eventWithDuplicatedEmail);
+        createRepository.createUser(firstEvent);
+        UserCreationResult result = createRepository.createUser(eventWithDuplicatedEmail);
 
-        assertThat(result.map(id -> id, error -> error), equalTo("USER_ALREADY_EXISTS"));
+        assertThat(result.map(id -> "id", error -> error), equalTo("USER_ALREADY_EXISTS"));
     }
 }

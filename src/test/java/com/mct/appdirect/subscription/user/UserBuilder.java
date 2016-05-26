@@ -10,41 +10,41 @@ public class UserBuilder {
 
     private UserBuilder() {};
 
-    static UserBuilder aUser() {
+    public static UserBuilder aUser() {
      return new UserBuilder();
     }
 
-    UserBuilder withId(long id) {
+    public UserBuilder withId(long id) {
         this.id = id;
         return this;
     }
 
-    UserBuilder withEmail(String email) {
+    public UserBuilder withEmail(String email) {
         this.email = email;
         return this;
     }
 
-    UserBuilder withFirstName(String firstName) {
+    public UserBuilder withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    UserBuilder withLastName(String lastName) {
+    public UserBuilder withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    UserBuilder active() {
+    public UserBuilder active() {
         this.cancelled = false;
         return this;
     }
 
-    UserBuilder inactive() {
+    public UserBuilder inactive() {
         this.cancelled = true;
         return this;
     }
 
-    User build() {
+    public User build() {
         return new User(id, email, cancelled, firstName, lastName);
     }
 }

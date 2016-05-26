@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 
-class User {
+public class User {
 
     private final long id;
     private final String email;
