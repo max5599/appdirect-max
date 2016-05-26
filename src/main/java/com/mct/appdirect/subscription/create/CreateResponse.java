@@ -8,14 +8,12 @@ import java.util.Objects;
 
 class CreateResponse extends BaseResponse {
 
-    private String accountIdentifier;
+    private final String accountIdentifier;
 
     @JsonCreator
-    CreateResponse(@JsonProperty(value = "success", required = true) boolean success) {
+    CreateResponse(@JsonProperty(value = "success", required = true) boolean success,
+                   @JsonProperty(value = "accountIdentifier", required = true) String accountIdentifier) {
         super(success);
-    }
-
-    void setAccountIdentifier(String accountIdentifier) {
         this.accountIdentifier = accountIdentifier;
     }
 
