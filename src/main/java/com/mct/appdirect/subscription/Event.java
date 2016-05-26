@@ -12,7 +12,7 @@ public class Event {
     private final Payload payload;
 
     @JsonCreator
-    public Event(@JsonProperty(value = "type", required = true) String type,
+    Event(@JsonProperty(value = "type", required = true) String type,
                  @JsonProperty(value = "creator", required = true) Creator creator,
                  @JsonProperty(value = "payload", required = true) Payload payload) {
         this.type = type;

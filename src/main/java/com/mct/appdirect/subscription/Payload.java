@@ -9,7 +9,7 @@ public class Payload {
 
     private Account account;
 
-    public void setAccount(Account account) {
+    void setAccount(Account account) {
         this.account = account;
     }
 

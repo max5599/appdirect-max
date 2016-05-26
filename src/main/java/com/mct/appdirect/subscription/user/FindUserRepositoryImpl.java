@@ -12,7 +12,8 @@ public class FindUserRepositoryImpl implements FindUserRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final RowMapper<User> userMapper = (rs, rowNum) -> new User(rs.getLong("id"), rs.getString("email"), rs.getBoolean("cancelled"), rs.getString("first_name"), rs.getString("last_name"));
+    private final RowMapper<User> userMapper = (rs, rowNum) ->
+            new User(rs.getLong("id"), rs.getString("email"), rs.getBoolean("cancelled"), rs.getString("first_name"), rs.getString("last_name"));
 
     @Autowired
     public FindUserRepositoryImpl(JdbcTemplate jdbcTemplate) {

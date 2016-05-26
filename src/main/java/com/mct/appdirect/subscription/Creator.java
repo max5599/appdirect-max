@@ -11,7 +11,7 @@ public class Creator {
     private String lastName;
 
     @JsonCreator
-    public Creator(@JsonProperty("email") String email) {
+    Creator(@JsonProperty("email") String email) {
         this.email = email;
     }
 

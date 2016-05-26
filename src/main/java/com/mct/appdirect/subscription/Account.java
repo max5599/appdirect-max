@@ -9,7 +9,7 @@ public class Account {
     private final String accountIdentifier;
 
     @JsonCreator
-    public Account(@JsonProperty(value = "accountIdentifier", required = true) String accountIdentifier) {
+    Account(@JsonProperty(value = "accountIdentifier", required = true) String accountIdentifier) {
         this.accountIdentifier = accountIdentifier;
     }
 
