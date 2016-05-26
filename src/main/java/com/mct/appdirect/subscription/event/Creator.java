@@ -7,12 +7,16 @@ import java.util.Objects;
 
 public class Creator {
     private final String email;
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
 
     @JsonCreator
-    Creator(@JsonProperty("email") String email) {
+    Creator(@JsonProperty(value = "email", required = true) String email,
+            @JsonProperty(value = "firstName") String firstName,
+            @JsonProperty(value = "lastName") String lastName) {
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -23,16 +27,8 @@ public class Creator {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     @Override

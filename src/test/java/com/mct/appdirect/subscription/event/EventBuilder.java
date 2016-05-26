@@ -40,15 +40,11 @@ public class EventBuilder {
     }
 
     public Event build() {
-        Creator creator = new Creator(email);
-        creator.setFirstName(firstName);
-        creator.setLastName(lastName);
-
+        Creator creator = new Creator(email, firstName, lastName);
         Payload payload = new Payload();
         if (accountIdentifier != null) {
             payload.setAccount(new Account(accountIdentifier));
         }
-
         return new Event(type, creator, payload);
     }
 }
