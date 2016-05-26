@@ -1,4 +1,4 @@
-package com.mct.appdirect.user;
+package com.mct.appdirect.subscription.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

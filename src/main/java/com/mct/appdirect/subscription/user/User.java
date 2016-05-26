@@ -1,4 +1,4 @@
-package com.mct.appdirect.user;
+package com.mct.appdirect.subscription.user;
 
 import java.util.Objects;
 import java.util.Optional;

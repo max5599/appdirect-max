@@ -1,4 +1,4 @@
-package com.mct.appdirect.user;
+package com.mct.appdirect.subscription.user;
 
 import com.mct.appdirect.utils.IntegrationTest;
 import org.junit.Test;

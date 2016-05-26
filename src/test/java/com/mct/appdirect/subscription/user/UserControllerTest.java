@@ -1,4 +1,4 @@
-package com.mct.appdirect.user;
+package com.mct.appdirect.subscription.user;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 
-import static com.mct.appdirect.user.UserBuilder.aUser;
+import static com.mct.appdirect.subscription.user.UserBuilder.aUser;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

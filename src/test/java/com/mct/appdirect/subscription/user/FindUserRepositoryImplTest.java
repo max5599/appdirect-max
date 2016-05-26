@@ -1,4 +1,4 @@
-package com.mct.appdirect.user;
+package com.mct.appdirect.subscription.user;
 
 import com.mct.appdirect.utils.RepositoryTest;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
-import static com.mct.appdirect.user.UserBuilder.aUser;
+import static com.mct.appdirect.subscription.user.UserBuilder.aUser;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
