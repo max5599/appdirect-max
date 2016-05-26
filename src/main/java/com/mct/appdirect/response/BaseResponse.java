@@ -1,17 +1,21 @@
 package com.mct.appdirect.response;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class BaseResponse {
 
-    private boolean success;
+    private final boolean success;
+
+    @JsonCreator
+    public BaseResponse(@JsonProperty(value = "success", required = true) boolean success) {
+        this.success = success;
+    }
 
     public boolean isSuccess() {
         return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 
     @Override

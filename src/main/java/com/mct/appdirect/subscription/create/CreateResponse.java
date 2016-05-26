@@ -1,5 +1,7 @@
 package com.mct.appdirect.subscription.create;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mct.appdirect.response.BaseResponse;
 
 import java.util.Objects;
@@ -7,6 +9,11 @@ import java.util.Objects;
 class CreateResponse extends BaseResponse {
 
     private String accountIdentifier;
+
+    @JsonCreator
+    CreateResponse(@JsonProperty(value = "success", required = true) boolean success) {
+        super(success);
+    }
 
     void setAccountIdentifier(String accountIdentifier) {
         this.accountIdentifier = accountIdentifier;

@@ -1,10 +1,18 @@
 package com.mct.appdirect.response;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class ErrorResponse extends BaseResponse {
 
     private String errorCode;
+
+    @JsonCreator
+    public ErrorResponse(@JsonProperty(value = "success", required = true) boolean success) {
+        super(success);
+    }
 
     public String getErrorCode() {
         return errorCode;

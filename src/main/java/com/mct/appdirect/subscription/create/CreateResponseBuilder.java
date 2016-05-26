@@ -6,8 +6,7 @@ class CreateResponseBuilder {
     }
 
     static CreateResponse aSuccessfulResponseWithAccountIdentifier(String accountIdentifier) {
-        CreateResponse createResponse = new CreateResponse();
-        createResponse.setSuccess(true);
+        CreateResponse createResponse = new CreateResponse(true);
         createResponse.setAccountIdentifier(accountIdentifier);
         return createResponse;
     }

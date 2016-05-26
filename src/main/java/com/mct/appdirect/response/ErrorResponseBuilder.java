@@ -24,8 +24,7 @@ public class ErrorResponseBuilder {
     }
 
     public static ErrorResponse aFailureResponseWithErrorCode(String errorCode) {
-        ErrorResponse error = new ErrorResponse();
-        error.setSuccess(false);
+        ErrorResponse error = new ErrorResponse(false);
         error.setErrorCode(errorCode);
         return error;
     }
