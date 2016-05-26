@@ -27,6 +27,6 @@ class UserController {
                 user.getEmail(),
                 user.getFirstName().orElse("John"),
                 user.getLastName().orElse("Doe"),
-                (user.isActive() ? "active" : "inactive"));
+                (user.isCancelled() ? "inactive" : "active"));
     }
 }

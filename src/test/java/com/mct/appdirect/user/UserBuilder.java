@@ -6,7 +6,7 @@ public class UserBuilder {
     private String email = "max@ence.com";
     private String firstName;
     private String lastName;
-    private boolean active = false;
+    private boolean cancelled = false;
 
     private UserBuilder() {};
 
@@ -35,19 +35,16 @@ public class UserBuilder {
     }
 
     UserBuilder active() {
-        this.active = true;
+        this.cancelled = false;
         return this;
     }
 
     UserBuilder inactive() {
-        this.active = false;
+        this.cancelled = true;
         return this;
     }
 
     User build() {
-        User user = new User(id, email, active);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        return user;
+        return new User(id, email, cancelled, firstName, lastName);
     }
 }
