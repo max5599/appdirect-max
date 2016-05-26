@@ -16,7 +16,7 @@ class UserController {
         this.findUserRepository = findUserRepository;
     }
 
-    @RequestMapping("/users")
+    @RequestMapping("/")
     public String findUsers() {
         return findUserRepository.getUsers().stream().map(this::formatUser).collect(Collectors.joining("\n"));
     }

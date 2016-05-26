@@ -18,4 +18,4 @@ https://appdirect-max.herokuapp.com/subscription/create?url={eventUrl}
 https://appdirect-max.herokuapp.com/subscription/cancel?url={eventUrl}
 
 ### List user
-https://appdirect-max.herokuapp.com/users
+https://appdirect-max.herokuapp.com/

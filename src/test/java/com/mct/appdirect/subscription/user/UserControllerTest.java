@@ -27,7 +27,7 @@ public class UserControllerTest {
     public void shouldReturnOkWithTheUsers() throws Exception {
         MockMvc mvc = createMockMvc();
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/")
                 .accept(MediaType.TEXT_PLAIN);
 
         String expectedContent = "User 1 with email max@ence.com is Maxence Cramet and he or she is active\n" +

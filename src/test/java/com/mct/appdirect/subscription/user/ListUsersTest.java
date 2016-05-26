@@ -21,6 +21,6 @@ public class ListUsersTest extends IntegrationTest {
     }
 
     private ResponseEntity<String> callUsers() throws Exception {
-        return unsecuredGet("/users", String.class);
+        return unsecuredGet("/", String.class);
     }
 }
